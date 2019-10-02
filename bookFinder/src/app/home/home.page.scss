@@ -1,0 +1,28 @@
+h1{
+    text-indent: 25px;
+}
+
+ion-item{
+    --padding-start: 25px;
+    --padding-end: 25px;
+    ion-input{
+        --background: #ffffff;
+        border: solid 1px #333092;
+        border-radius: 5px;
+        --padding-start: 10px;
+    }
+    ion-select{
+        max-width: 100%;
+        background-color: #ffffff;
+        border: solid 1px #333092;
+        border-radius: 5px;
+        --padding-end: 7px;
+    }
+}
+
+.submitbutton{
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+    --padding-left: 25px;
+    --padding-right: 25px;
+}
