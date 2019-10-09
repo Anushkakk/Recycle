@@ -27,7 +27,7 @@
       $result = mysql_query($qry_db);
       $finalres = mysql_fetch_row($result);
    } catch (PDOException $e) {
-    //  print_r 'Didnt Query!';
+      print_r 'Didnt Query!';
    }
    
 

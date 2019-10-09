@@ -54,7 +54,6 @@ export class HomePage {
       this.plan_names[i] = this.plan_names[i] + " Level";
       this.images.push(this.createImage(this.plans[i], this.plan_names[i]));
     }
-    console.log(this.images);
   }
   
 
@@ -65,6 +64,12 @@ export class HomePage {
   normalize() {
     this.CALL_NUM_ONE = this.callNumber_one;
     this.CALL_NUM_ONE = this.CALL_NUM_ONE.replace(/ /g, "");
+
+    this.CALL_NUM_TWO = this.callNumber_two;
+    this.CALL_NUM_TWO = this.CALL_NUM_TWO.replace(/ /g, "");
+
+    this.CALL_NUM_THREE = this.callNumber_three;
+    this.CALL_NUM_THREE = this.CALL_NUM_THREE.replace(/ /g, "");
   }
 
   getSrc(){
@@ -84,14 +89,14 @@ export class HomePage {
     //document.getElementById("floor_name").innerHTML = this.plan_names[floor_number];
     //if (!document.getElementById("floor_number")) { return; }
 
-    console.log("This number is " + floor_number);
-    console.log("The plan name is " + this.plan_names[floor_number]);
+    //console.log("This number is " + floor_number);
+    //console.log("The plan name is " + this.plan_names[floor_number]);
     //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
 
     // Create then adjusts the height and width of the canvas element
     let canvas = <HTMLCanvasElement>document.getElementById('canvas');
     let img = this.images[floor_number-1];
-    console.log(this.images[floor_number-1]);
+    //console.log(this.images[floor_number-1]);
     canvas.height = 500;//this is the actual code img.height;
     canvas.width = 1000;// editing this for the presentation with Sewell img.width;
     // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
@@ -101,6 +106,7 @@ export class HomePage {
     //ctx.rotate(90*Math.PI/180);
     //this.navCtrl.push('map-display', floor_number-1);
     ctx.drawImage(img,0,0);
+
   }
 
   ionViewDidLeave() {
@@ -120,47 +126,74 @@ export class HomePage {
     await this.navCtrl.navigateForward(['/currency-details/tabs-currency/currency-overview']);
   }
 
+  decode(arr: Array<String>) {
+    if(arr[0] == '2' && arr[1] == '4' && arr[2] == '35' && arr[3] == 'A') {
+      console.log("Call Number 1: Empty" + '\n');
+    }
+    else {
+      console.log("Call Number 1:" + '\n');
+        console.log('\t' + "Floor: " + arr[0] + '\n');
+        console.log('\t' + "Aisle #: " + arr[1] + '\n');
+        console.log('\t' + "Range: " + arr[2] + '\n');
+        console.log('\t' + "Side: " + arr[3] + '\n');
+    }
+
+    if(arr[4] == '2' && arr[5] == '4' && arr[6] == '35' && arr[7] == 'A') {
+      console.log("Call Number 2: Empty" + '\n');
+    }
+    else {
+      console.log("Call Number 2:" + '\n');
+        console.log('\t' + "Floor: " + arr[4] + '\n');
+        console.log('\t' + "Aisle #: " + arr[5] + '\n');
+        console.log('\t' + "Range: " + arr[6] + '\n');
+        console.log('\t' + "Side: " + arr[7] + '\n');
+    }
+
+    if(arr[8] == '2' && arr[9] == '4' && arr[10] == '35' && arr[11] == 'A') {
+      console.log("Call Number 3: Empty" + '\n');
+    }
+    else {
+      console.log("Call Number 3:" + '\n');
+        console.log('\t' + "Floor: " + arr[8] + '\n');
+        console.log('\t' + "Aisle #: " + arr[9] + '\n');
+        console.log('\t' + "Range: " + arr[10] + '\n');
+        console.log('\t' + "Side: " + arr[11] + '\n');
+    }
+  }
+
   load() {
     this.normalize();
     //This is a random variable. Pay no attention to it. It's here because the
     //http.post method needs two variables. It doesn't do anything.
     var randomVariable = 0;
 
-    var obj = {callnum: this.CALL_NUM_ONE, collection: this.collection_one};
+    var obj = {callnum1: this.CALL_NUM_ONE, collection1: this.collection_one,
+               callnum2: this.CALL_NUM_TWO, collection2: this.collection_two,
+               callnum3: this.CALL_NUM_THREE, collection3: this.collection_three};
     
     this.http.post("http://bookfind.hpc.tcnj.edu/retrieve-data.php", JSON.stringify(obj))
     .subscribe (data => {
-      console.log(JSON.stringify(data['_body']));
+      //console.log(JSON.stringify(data['_body']));
       //First index is floor number, second is aisle, third range, fourth is side
       this.bookValueString = data['_body'];
-      console.log(this.bookValueString);
-      this.bookValues = this.bookValueString.split(",", 4);
-      console.log(this.bookValues);
-      //this.showFloor(Number(this.CALL_NUM_ONE));
-      this.showFloor(Number(this.bookValues[0]));
-      this.data = data['_body'];
-      //alert(this.data);
+      //console.log(this.bookValueString);
+      this.bookValues = this.bookValueString.split(",", 12);
+      //console.log(this.bookValues);
 
+      this.decode(this.bookValues);
+
+
+      if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
+        this.showFloor(Number(this.bookValues[0]));
+      if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
+        this.showFloor(Number(this.bookValues[4]));
+      if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))
+        this.showFloor(Number(this.bookValues[8]));
     },
     (error : any) =>
     {
       //If the connection doesn't work, an error message is sent.
-      //alert(error); 
-    });
-    
-
-    //This is an HTTP request, which links to a PHP file that queries the database
-    //for relevant information.
-    this.http.get("http://bookfind.hpc.tcnj.edu/retrieve-data.php", JSON.stringify(randomVariable))
-    .subscribe(data => 
-    {
-      this.data = data['_body'];
-      //Right now, we're "alerting" the data - displaying it in a dialog box.
-    },
-    (error : any) =>
-    {
-      //If the connection doesn't work, an error message is sent.
-      //alert(error);
+      alert(error); 
     });
   }
 }
