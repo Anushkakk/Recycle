@@ -85,7 +85,7 @@ export class MapDisplayPage implements OnInit {
       this.info = this.info + '\t' + "Range: " + arr[2] + '\n';
       this.info = this.info + '\t' + "Side: " + arr[3] + '\n';
     }
-
+/*
     if(arr[4] == '2' && arr[5] == '4' && arr[6] == '35' && arr[7] == 'A') {
       //this.info = this.info + "Call Number 2: Empty" + '\n';
     }
@@ -107,6 +107,7 @@ export class MapDisplayPage implements OnInit {
       this.info = this.info + '\t' + "Range: " + arr[10] + '\n';
       this.info = this.info + '\t' + "Side: " + arr[11] + '\n';
     }
+    */
   }
 
   ngOnInit() {
@@ -118,10 +119,10 @@ export class MapDisplayPage implements OnInit {
     if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
         console.log(Number(this.bookValues[0]));
         setTimeout(() => this.showFloor(Number(this.bookValues[0])), 200);
-    if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
+    /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
     if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))
-        this.showFloor(Number(this.bookValues[8]));
+        this.showFloor(Number(this.bookValues[8]));*/
   }
 
 }
