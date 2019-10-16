@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'map-display', loadChildren: './map-display/map-display.module#MapDisplayPageModule' },
+  { path: 'map-display/:data', loadChildren: './map-display/map-display.module#MapDisplayPageModule' },
 ];
 
 @NgModule({
