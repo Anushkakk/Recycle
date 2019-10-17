@@ -60,19 +60,17 @@ export class MapDisplayPage implements OnInit {
     // Create then adjusts the height and width of the canvas element
     let canvas = <HTMLCanvasElement>document.getElementById('canvas');
     let img = this.images[floor_number-1];
-    img.height = 1000;
-    img.width = 600;
     console.log(this.images[floor_number-1]);
     canvas.height = img.height;//this is the actual code img.height;
     canvas.width = img.width;// editing this for the presentation with Sewell img.width;
     
     // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
     let ctx = canvas.getContext("2d");
-    ctx.scale(.1,.25);
+    //ctx.scale(.1,.07);
     //ctx.translate(canvas.width,0);
     //ctx.rotate(90*Math.PI/180);
     console.log(img);
-    //ctx.drawImage(img,0,0);
+    ctx.drawImage(img,0,0);
     //ctx.fillRect(0, 0, 2000, 2000);
   }
 
