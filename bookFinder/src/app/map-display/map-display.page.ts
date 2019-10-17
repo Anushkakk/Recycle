@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
+
 
 @Component({
   selector: 'app-map-display',
@@ -70,7 +72,7 @@ export class MapDisplayPage implements OnInit {
     //ctx.translate(canvas.width,0);
     //ctx.rotate(90*Math.PI/180);
     console.log(img);
-    ctx.drawImage(img,0,0);
+    //ctx.drawImage(img,0,0);
     //ctx.fillRect(0, 0, 2000, 2000);
   }
 
