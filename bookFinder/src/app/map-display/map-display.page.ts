@@ -40,7 +40,7 @@ export class MapDisplayPage implements OnInit {
     return img;
   }
 
-  showFloor(floor_number: number) {
+  showFloor(floor_number: number, arr: Array<String>) {
     /*
     Creates a blank background (no floor plan) for when you
     have not chosen a floor yet
@@ -66,12 +66,51 @@ export class MapDisplayPage implements OnInit {
     
     // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
     let ctx = canvas.getContext("2d");
-    //ctx.scale(.1,.07);
-    //ctx.translate(canvas.width,0);
-    //ctx.rotate(90*Math.PI/180);
+
     console.log(img);
     ctx.drawImage(img,0,0);
-    //ctx.fillRect(0, 0, 2000, 2000);
+
+    var xoffset = 0;
+    var yoffset = 0;
+    var stackNum = 0;
+
+    switch (arr[1]) {
+      case '1':
+        xoffset = 4326;
+        yoffset = 3395;
+        break;
+      case '2':
+        xoffset = 3685;
+        yoffset = 3395;
+        stackNum = 5;
+        break;
+      case '3':
+        xoffset = 2340;
+        yoffset = 3165;
+        stackNum = 10;
+        break;
+      case '4':
+        xoffset = 1750;
+        yoffset = 3165;
+        stackNum = 30;
+        break;
+      case '5':
+        xoffset = 1135;
+        yoffset = 3165;
+        stackNum = 44;
+        break;
+    }
+
+    yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112)
+    
+    if(arr[3] == 'B') {
+      yoffset = yoffset - 27;
+    }
+
+    ctx.beginPath();
+    ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
+    ctx.fillStyle = "red";
+    ctx.fill();
   }
 
   decode(arr: Array<String>) {
@@ -118,7 +157,7 @@ export class MapDisplayPage implements OnInit {
     
     if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
         console.log(Number(this.bookValues[0]));
-        setTimeout(() => this.showFloor(Number(this.bookValues[0])), 200);
+        setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 200);
     /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
     if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))
