@@ -18,8 +18,10 @@
       User's input stored in a string named "callNumber_one"
       Other inputs will use the name "callNumber_two", "callNumber_three", etc.-->
 
+      <!--Used to have: (ionChange) = "normalize($event)" debounce = "200" -->
+
   <ion-item lines=none>
-    <ion-input [(ngModel)]="callNumber_one" (ionChange) = "normalize($event)" debounce = "200" placeholder="Call Number"></ion-input>
+    <ion-input [(ngModel)]="callNumber_one" placeholder="Call Number"></ion-input>
   </ion-item>
   
   <!--Drop-Down Menu for First Call Number
