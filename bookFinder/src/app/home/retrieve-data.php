@@ -1,30 +1,28 @@
 <?php
+   //Define global variables for beginning, ending, and user call numbers
+   $BC_Subject;
+   $BC_ClassNum;
+   $BC_Cutter1;
+   $BC_Cutter2;
+   $BC_Cutter3;
+   $BC_Version;
+   $BC_Copy;
 
-//Define global variables for beginning, ending, and user call numbers
-$BC_Subject;
-$BC_ClassNum;
-$BC_Cutter1;
-$BC_Cutter2;
-$BC_Cutter3;
-$BC_Version;
-$BC_Copy;
+   $EC_Subject;
+   $EC_ClassNum;
+   $EC_Cutter1;
+   $EC_Cutter2;
+   $EC_Cutter3;
+   $EC_Version;
+   $EC_Copy;
 
-$EC_Subject;
-$EC_ClassNum;
-$EC_Cutter1;
-$EC_Cutter2;
-$EC_Cutter3;
-$EC_Version;
-$EC_Copy;
-
-$CN_Subject;
-$CN_ClassNum;
-$CN_Cutter1;
-$CN_Cutter2;
-$CN_Cutter3;
-$CN_Version;
-$CN_Copy;
-
+   $CN_Subject;
+   $CN_ClassNum;
+   $CN_Cutter1;
+   $CN_Cutter2;
+   $CN_Cutter3;
+   $CN_Version;
+   $CN_Copy;
 
    function assignCN($CN_Arr) {
       if(sizeof($CN_Arr) > 0)
@@ -36,7 +34,6 @@ $CN_Copy;
 
       if(sizeof($CN_Arr) > 3) {
          for($i = 3; i < sizeof($CN_Arr); ++$i) {
-
             if(substr($CN_Arr[$i], 0, 2) == 'v.' || substr($CN_Arr[$i], 0, 2) == 'V.') {
                $GLOBALS['CN_Version'] = $CN_Arr[$i];
             }
@@ -53,7 +50,11 @@ $CN_Copy;
             else if ((ord(substr($CN_Arr[$i], 0, 1)) >= 65 && ord(substr($CN_Arr[$i], 0, 1)) <= 90) ||
             (ord(substr($CN_Arr[$i], 0, 1)) >= 97 && ord(substr($CN_Arr[$i], 0, 1)) <= 122) && $GLOBALS['CN_Cutter3'] == "") {
                $GLOBALS['CN_Cutter3'] = $CN_Arr[$i];
-            }  
+            }
+
+            else {
+               return;
+            }
          }
       }
    }
@@ -84,7 +85,11 @@ $CN_Copy;
             else if ((ord(substr($BC_Arr[$i], 0, 1)) >= 65 && ord(substr($BC_Arr[$i], 0, 1)) <= 90) ||
             (ord(substr($BC_Arr[$i], 0, 1)) >= 97 && ord(substr($BC_Arr[$i], 0, 1)) <= 122) && $GLOBALS['BC_Cutter3'] == "") {
                $GLOBALS['BC_Cutter3'] = $BC_Arr[$i];
-            }  
+            }
+            
+            else {
+               return;
+            }
          }
       }
    }
@@ -115,7 +120,11 @@ $CN_Copy;
             else if ((ord(substr($EC_Arr[$i], 0, 1)) >= 65 && ord(substr($EC_Arr[$i], 0, 1)) <= 90) ||
             (ord(substr($EC_Arr[$i], 0, 1)) >= 97 && ord(substr($EC_Arr[$i], 0, 1)) <= 122) && $GLOBALS['EC_Cutter3'] == "") {
                $GLOBALS['EC_Cutter3'] = $EC_Arr[$i];
-            }  
+            }
+            
+            else {
+               return;
+            }
          }
       }
    }
@@ -157,7 +166,7 @@ $CN_Copy;
             //Read the next character. If it is a number, it's still part of the classification number
             //If it is a letter, it's the beginning of the cutter and a space is added before the period
             if((ord(substr($callNum, $i + 1, 1)) >= 65 && ord(substr($callNum, $i + 1, 1)) <= 90) ||
-            (ord(substr($callNum, 1, 1)) >= 97 && ord(substr($callNum, 1, 1)) <= 122)) {
+            (ord(substr($callNum, $i + 1, 1)) >= 97 && ord(substr($callNum, $i + 1, 1)) <= 122)) {
                $str1 = substr($callNum, 0, $i);
                $str2 = substr($callNum, $i);
                $callNum = $str1 . ' ' . $str2;
@@ -188,6 +197,8 @@ $CN_Copy;
          if(substr($callNum, $i, 1) == 'v' || substr($callNum, $i, 1) == 'V') {
             //If it's a period, its a version number and a space is added before the v
             if(substr($callNum, $i + 1, 1) == '.') {
+               //echo("GOT HERE: VERSION/COPY FOUND\n");
+               //echo(substr($callNum, $i) . "\n");
                $str1 = substr($callNum, 0, $i);
                $str2 = substr($callNum, $i);
                $callNum = $str1 . ' ' . $str2;
@@ -219,8 +230,8 @@ $CN_Copy;
 
             if(!(substr($callNum, $i, 1) == 'v' || substr($callNum, $i, 1) == 'V' ||
             substr($callNum, $i, 1) == 'c' || substr($callNum, $i, 1) == 'C')) {
-               $str1 = substr($callNum, 0, $i - 1);
-               $str2 = substr($callNum, $i - 1);
+               $str1 = substr($callNum, 0, $i);
+               $str2 = substr($callNum, $i);
                $callNum = $str1 . ' ' . $str2;
                $i++;
             }
@@ -246,7 +257,6 @@ $CN_Copy;
    $conn = mysql_connect($servername, $location, $password) or die("connect failed");
    mysql_select_db($dbname, $conn) or die ("select failed".mysql_error());
 
-   
    $postdata = file_get_contents("php://input");
    $request = json_decode($postdata, true);		
    $callnum = $request["callnum"];
@@ -256,59 +266,167 @@ $CN_Copy;
    assignCN($CN_Arr);
 
    try {
-      for($i = 1; $i < 450; ++$i) {
-         $qry_db = 'SELECT begin_call FROM testtable WHERE row_num = ' . $i;
+      for($i = 0; $i < 450; ++$i) {
+         $GLOBALS['BC_Subject'] = "";
+         $GLOBALS['BC_ClassNum'] = "";
+         $GLOBALS['BC_Cutter1'] = "";
+         $GLOBALS['BC_Cutter2'] = "";
+         $GLOBALS['BC_Cutter3'] = "";
+         $GLOBALS['BC_Version'] = "";
+         $GLOBALS['BC_Copy'] = "";
+
+         $GLOBALS['EC_Subject'] = "";
+         $GLOBALS['EC_ClassNum'] = "";
+         $GLOBALS['EC_Cutter1'] = "";
+         $GLOBALS['EC_Cutter2'] = "";
+         $GLOBALS['EC_Cutter3'] = "";
+         $GLOBALS['EC_Version'] = "";
+         $GLOBALS['EC_Copy'] = "";
+
+         $qry_db = 'SELECT begin_call FROM LibraryStacks WHERE row_num = ' . $i;
          $row = mysql_query($qry_db); 
          if($row)
          $BC = mysql_fetch_row($row);
          $beginCall = normalize($BC[0]);
-	
-         $qry_db = 'SELECT end_call FROM testtable WHERE row_num = ' . $i;
+
+         $qry_db = 'SELECT end_call FROM LibraryStacks WHERE row_num = ' . $i;
          $row = mysql_query($qry_db);
          if($row)
          $EC = mysql_fetch_row($row);
          $endCall = normalize($EC[0]);
 	
-         $qry_db = 'SELECT collection FROM testtable WHERE row_num = ' . $i;
+         $qry_db = 'SELECT collection FROM LibraryStacks WHERE row_num = ' . $i;
          $row = mysql_query($qry_db);
          if($row)
          $CO = mysql_fetch_row($row);
 
-         if($CO[0] == $collection[0]) {
+         if($CO[0] == $collection) {
             $BC_Arr = explode(' ', $beginCall);
             $EC_Arr = explode(' ', $endCall);
             assignBC($BC_Arr);
             assignEC($EC_Arr);
 
-            echo("BEGIN CALL: " . $beginCall . "                                                                  ");
-            echo("END CALL: " . $endCall . "                                                                  ");
+            echo($GLOBALS['BC_Subject'] . "\n");
+            echo($GLOBALS['BC_ClassNum'] . "\n");
+            echo($GLOBALS['BC_Cutter1'] . "\n");
+            echo($GLOBALS['BC_Cutter2'] . "\n");
+            echo($GLOBALS['BC_Cutter3'] . "\n");
+            echo($GLOBALS['BC_Version'] . "\n");
+            echo($GLOBALS['BC_Copy'] . "\n");
 
-            if(($callnum[0] >= $BC_Stripped && $callnum[0] <= $EC_Stripped)) {//|| ($callnum[0] <= $BC_Stripped && $callnum[0] >= $EC_Stripped)) {
+            echo($GLOBALS['EC_Subject'] . "\n");
+            echo($GLOBALS['EC_ClassNum'] . "\n");
+            echo($GLOBALS['EC_Cutter1'] . "\n");
+            echo($GLOBALS['EC_Cutter2'] . "\n");
+            echo($GLOBALS['EC_Cutter3'] . "\n");
+            echo($GLOBALS['EC_Version'] . "\n");
+            echo($GLOBALS['EC_Copy'] . "\n");
 
-               //echo("CALL NUM: " . $callnum[0] . ", BC_STRIPPED: " . $BC_Stripped . ", EC_STRIPPED: " . $EC_Stripped);
+            echo($GLOBALS['CN_Subject'] . "\n");
+            echo($GLOBALS['CN_ClassNum'] . "\n");
+            echo($GLOBALS['CN_Cutter1'] . "\n");
+            echo($GLOBALS['CN_Cutter2'] . "\n");
+            echo($GLOBALS['CN_Cutter3'] . "\n");
+            echo($GLOBALS['CN_Version'] . "\n");
+            echo($GLOBALS['CN_Copy'] . "\n");
 
+            $match = 0;
 
-               $qry_db = 'SELECT floor FROM testtable WHERE end_call = "' . $EC[0] . '"';
+            //Check Subjects
+            if($GLOBALS['CN_Subject'] >= $GLOBALS['BC_Subject'] && $GLOBALS['CN_Subject'] <= $GLOBALS['EC_Subject']) {
+               $match = 1;
+            }
+
+            //Check Classification Number
+            if($match) {
+               $match = 0;
+
+               //for($char = 0; $char < )
+
+               if($GLOBALS['CN_ClassNum'] >= $GLOBALS['BC_ClassNum'] && $GLOBALS['CN_ClassNum'] <= $GLOBALS['EC_ClassNum']) {
+                  $match = 1;
+               }
+            }
+
+            //Check Cutter 1
+            if($match) {
+               $match = 0;
+               if(empty($GLOBALS['CN_Cutter1'])) {
+                  $match = 1;
+               }
+               else if(($GLOBALS['CN_Cutter1'] >= $GLOBALS['BC_Cutter1'] || empty($GLOBALS['BC_Cutter1'])) && ($GLOBALS['CN_Cutter1'] <= $GLOBALS['EC_Cutter1'] || empty($GLOBALS['EC_Cutter1']))) {
+                  $match = 1;
+               }
+            }
+
+            //Check Cutter 2
+            if($match) {
+               $match = 0;
+               if(empty($GLOBALS['CN_Cutter2'])) {
+                  $match = 1;
+               }
+               else if(($GLOBALS['CN_Cutter2'] >= $GLOBALS['BC_Cutter2'] || empty($GLOBALS['BC_Cutter2'])) && ($GLOBALS['CN_Cutter2'] <= $GLOBALS['EC_Cutter2'] || empty($GLOBALS['EC_Cutter2']))) {
+                  $match = 1;
+               }
+            }
+
+            //Check Cutter 3
+            if($match) {
+               $match = 0;
+               if(empty($GLOBALS['CN_Cutter3'])) {
+                  $match = 1;
+               }
+               else if(($GLOBALS['CN_Cutter3'] >= $GLOBALS['BC_Cutter3'] || empty($GLOBALS['BC_Cutter3'])) && ($GLOBALS['CN_Cutter3'] <= $GLOBALS['EC_Cutter3'] || empty($GLOBALS['EC_Cutter3']))) {
+                  $match = 1;
+               }
+            }
+
+            //Check Version
+            if($match) {
+               $match = 0;
+               if(empty($GLOBALS['CN_Version'])) {
+                  $match = 1;
+               }
+               else if(($GLOBALS['CN_Version'] >= $GLOBALS['BC_Version'] || empty($GLOBALS['BC_Version'])) && ($GLOBALS['CN_Version'] <= $GLOBALS['EC_Version'] || empty($GLOBALS['EC_Version']))) {
+                  $match = 1;
+               }
+            }
+
+            echo("MATCH: " . $match . "\n");
+
+            //Check Copy
+            if($match) {
+               $match = 0;
+               if(empty($GLOBALS['CN_Copy'])) {
+                  $match = 1;
+               }
+               else if(($GLOBALS['CN_Copy'] >= $GLOBALS['BC_Copy'] || empty($GLOBALS['BC_Copy'])) && ($GLOBALS['CN_Copy'] <= $GLOBALS['EC_Copy'] || empty($GLOBALS['EC_Copy']))) {
+                  $match = 1;
+               }
+            }
+
+            if($match) {
+               $qry_db = 'SELECT floor FROM LibraryStacks WHERE end_call = "' . $EC[0] . '"';
                $result = mysql_query($qry_db);  
                if($result)
                $floor = mysql_fetch_row($result);
 	
-               $qry_db = 'SELECT aisle_number FROM testtable WHERE end_call = "' . $EC[0] . '"';
+               $qry_db = 'SELECT aisle_number FROM LibraryStacks WHERE end_call = "' . $EC[0] . '"';
                $result = mysql_query($qry_db);  
                if($result)
                $aisle_num = mysql_fetch_row($result);
 	
-               $qry_db = 'SELECT book_range FROM testtable WHERE end_call = "' . $EC[0] . '"';
+               $qry_db = 'SELECT book_range FROM LibraryStacks WHERE end_call = "' . $EC[0] . '"';
                $result = mysql_query($qry_db);
                if($result)
                $range = mysql_fetch_row($result);
 			
-               $qry_db = 'SELECT row_num FROM testtable WHERE end_call = "' . $EC[0] . '"';
+               $qry_db = 'SELECT row_num FROM LibraryStacks WHERE end_call = "' . $EC[0] . '"';
                $result = mysql_query($qry_db);
                if($result)
                $ROW = mysql_fetch_row($result);
 	
-               $qry_db = 'SELECT side FROM testtable WHERE end_call = "' . $EC[0] . '"';
+               $qry_db = 'SELECT side FROM LibraryStacks WHERE end_call = "' . $EC[0] . '"';
                $result = mysql_query($qry_db);  
                if($result)
                $side = mysql_fetch_row($result);
@@ -319,10 +437,10 @@ $CN_Copy;
 
    catch (PDOException $e) {}
   
-   //print_r($floor[0] . ",");
-   //print_r($aisle_num[0] . ",");
-   //print_r($range[0] . ",");
-   //print_r($side[0] . ",");
+   print_r($floor[0] . ",");
+   print_r($aisle_num[0] . ",");
+   print_r($range[0] . ",");
+   print_r($side[0] . ",");
 
    mysql_close($conn);
 
