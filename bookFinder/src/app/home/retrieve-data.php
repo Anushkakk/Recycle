@@ -345,7 +345,7 @@
             if($match) {
                $match = 0;
 
-               
+               echo($GLOBALS['CN_ClassNum'] . "\n");
 
                /*
 
