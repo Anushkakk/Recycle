@@ -306,6 +306,8 @@
             assignBC($BC_Arr);
             assignEC($EC_Arr);
 
+            /*
+
             echo($GLOBALS['BC_Subject'] . "\n");
             echo($GLOBALS['BC_ClassNum'] . "\n");
             echo($GLOBALS['BC_Cutter1'] . "\n");
@@ -330,6 +332,8 @@
             echo($GLOBALS['CN_Version'] . "\n");
             echo($GLOBALS['CN_Copy'] . "\n");
 
+            */
+
             $match = 0;
 
             //Check Subjects
@@ -341,11 +345,55 @@
             if($match) {
                $match = 0;
 
-               //for($char = 0; $char < )
+               
 
+               /*
+
+               CN_Arr = str_split($GLOBALS['CN_ClassNum']);
+               BC_Arr = str_split($GLOBALS['BC_ClassNum']);
+               EC_Arr = str_split($GLOBALS['EC_ClassNum']);
+
+               /*
+
+               for($n = 0; $n < sizeof(CN_Arr); ++$n) {
+                  if($n > sizeof(BC_Arr) && $n > sizeof(EC_Arr)) {
+                     $match = 1;
+                     break;
+                  }
+                  else if($n > sizeof(BC_Arr)) {
+                     if(CN_Arr[$n] < EC_Arr[$n]) {
+                        $match = 1;
+                        break;
+                     }
+                     else if(CN_Arr[$n] > EC_Arr[$n]) {
+                        break;
+                     }
+                  }
+                  else if($n > sizeof(EC_Arr)) {
+                     if(CN_Arr[$n] > BC_Arr[$n]) {
+                        $match = 1;
+                        break;
+                     }
+                     else if(CN_Arr[$n] < BC_Arr[$n]) {
+                        break;
+                     }
+                  }
+                  else if($n < sizeof(BC_Arr) && $n < sizeof(EC_Arr)) {
+                     if(CN_Arr[$n] > BC_Arr[$n] && CN_Arr[$n] < EC_Arr[$n]) {
+                        match = 1;
+                        break;
+                     }
+                     else if(CN_Arr[$n] < BC_Arr[$n] && CN_Arr[$n] > EC_Arr[$n]) {
+                        break;
+                     }
+                  }
+               }
+
+               /*
                if($GLOBALS['CN_ClassNum'] >= $GLOBALS['BC_ClassNum'] && $GLOBALS['CN_ClassNum'] <= $GLOBALS['EC_ClassNum']) {
                   $match = 1;
                }
+               */
             }
 
             //Check Cutter 1
@@ -391,8 +439,6 @@
                   $match = 1;
                }
             }
-
-            echo("MATCH: " . $match . "\n");
 
             //Check Copy
             if($match) {
