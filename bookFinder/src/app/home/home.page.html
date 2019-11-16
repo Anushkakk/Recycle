@@ -3,42 +3,43 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title style = "color: #ffffff;">
       Book Finder
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <!--Page Body-->
-
+<!--make div move all of the other elements-->
 <ion-content>
-  <h1>I'm looking for...</h1>
-  <!--<h2 id="floor_number"></h2>-->
-  <!--Input for First Call Number
+  <div style = "margin-left:5%">
+    <h1 style = "padding-top: 35%">I'm looking for...</h1>
+      <!--<h2 id="floor_number"></h2>-->
+      <!--Input for First Call Number
       User's input stored in a string named "callNum_one"
       Other inputs will use the name "callNum_two", "callNum_three", etc.-->
 
       <!--Used to have: (ionChange) = "normalize($event)" debounce = "200" -->
 
-  <ion-item lines=none>
-    <ion-input [(ngModel)]="callNum" placeholder="Call Number"></ion-input>
-  </ion-item>
+    <ion-item lines=none>
+      <ion-input color = "#222f79" [(ngModel)]="callNum" placeholder="Call Number"></ion-input>
+    </ion-item>
   
   <!--Drop-Down Menu for First Call Number
       This menu determines which section of the library you're looking in
       It's set to "General Collection" by default-->
-
-  <ion-item lines=none>
-    <p>in... &nbsp;</p>
-    <ion-select value="General Collection" [(ngModel)] = "collection" (ionChange) = "getCollection($event)" okText="OK" cancelText="Cancel">
-      <ion-select-option value="General Collection">General Collection</ion-select-option>
-      <ion-select-option value="Children's Collection">Children's Collection</ion-select-option>
-      <ion-select-option value="Curriculum Reference">Curriculum Reference</ion-select-option>
-      <ion-select-option value="New Textbook Collection">New Textbook Collection</ion-select-option>
-      <ion-select-option value="Old Textbook Collection">Old Textbook Collection</ion-select-option>
-    </ion-select>
-  </ion-item>
-
+  <!-- (ionChange) = "getCollection($event)" -->
+    <ion-item lines=none>
+      <p>in... &nbsp;</p>
+      <ion-select value="General Collection" [(ngModel)] = "collection" okText="OK" cancelText="Cancel">
+        <ion-select-option value="General Collection">General Collection</ion-select-option>
+        <ion-select-option value="Children's Collection">Children's Collection</ion-select-option>
+        <ion-select-option value="Curriculum Reference">Curriculum Reference</ion-select-option>
+        <ion-select-option value="New Textbook Collection">New Textbook Collection</ion-select-option>
+        <ion-select-option value="Old Textbook Collection">Old Textbook Collection</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
   <br>
 
   <!--
@@ -88,7 +89,9 @@
   <br>
 
   <!--Submit Button-->
-
+  <!--color is the color of the actual button-->
   <ion-item class = submitbutton lines=none>
-    <ion-button size="large" type="submit" (click)="load()">Submit</ion-button>
+    <ion-button color = "#d3a40d" size="large" style = "margin:auto;" type="submit" (click)="load()">Submit</ion-button>
   </ion-item>
+
+  </ion-content>

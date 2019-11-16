@@ -1,5 +1,7 @@
 {
   "name": "bookFinder",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
