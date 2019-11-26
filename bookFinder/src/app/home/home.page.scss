@@ -1,28 +1,58 @@
 h1{
     text-indent: 25px;
+    color: #ffffff;
+}
+
+p {
+    color: #ffffff;
+}
+
+ion-content{    
+    --background: url('/assets/Background2.png') no-repeat center/cover fixed;
+}
+
+ion-header {
+    //--ion-background-color: #3b3652;
+    --ion-background-color: #262748;
+    text-align: center;
 }
 
 ion-item{
+    --background: transparent;
     --padding-start: 25px;
     --padding-end: 25px;
     ion-input{
         --background: #ffffff;
-        border: solid 1px #333092;
+        border: solid 1px #06123a;
         border-radius: 5px;
         --padding-start: 10px;
     }
     ion-select{
         max-width: 100%;
         background-color: #ffffff;
-        border: solid 1px #333092;
+        border: solid 1px #06123a;
         border-radius: 5px;
         --padding-end: 7px;
     }
 }
 
 .submitbutton{
-    --padding-top: 25px;
-    --padding-bottom: 25px;
-    --padding-left: 25px;
-    --padding-right: 25px;
+    //--padding-top: 25px;
+    //--padding-bottom: 25px;
+    //--padding-left: 25px;
+    //--padding-right: 25px;
+    padding-left: 7%
+}
+
+ion-input {
+    //background-color: #588bb4;
+    --placeholder-color: #000000;
+}
+
+ion-button {
+    background-color: #d3a40d;
+    //--color-activated: #d3a40d;
+    //--ripple-color: #333092;
+    border-radius: 5px;
+    //background-color: linear-gradient(197deg, rgba(100,100,100,1) 0%, rgba(63,63,63,1) 13.5%, rgba(29,29,29,1) 33.33%, rgba(0,0,0,1) 100%) !important;
 }
