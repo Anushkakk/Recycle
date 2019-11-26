@@ -148,7 +148,7 @@ export class HomePage {
 
       console.log(this.stackData);
 
-      //this.router.navigateByUrl('map-display/:' + this.stackData);
+      this.router.navigateByUrl('map-display/:' + this.stackData);
     },
     (error : any) =>
     {
