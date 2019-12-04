@@ -11,13 +11,20 @@ ion-content{
     --background: url('/assets/Background2.png') no-repeat center/cover fixed;
 }
 
-ion-header {
+/* ion-header {
     //--ion-background-color: #3b3652;
     --ion-background-color: #262748;
     text-align: center;
 }
+*/
+ion-title {
 
-ion-item{
+    background-color: #262748;
+    color: #ffffff;
+    
+}
+
+ion-item {
     --background: transparent;
     --padding-start: 25px;
     --padding-end: 25px;

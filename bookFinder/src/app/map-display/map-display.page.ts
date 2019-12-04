@@ -118,7 +118,8 @@ export class MapDisplayPage implements OnInit {
       //this.info = "Call Number 1: Empty" + '\n';
     }
     else {
-      this.info = this.info + "Call Number 1:" + '\n';
+      this.info = this.info + "Call Number:" + '\n';
+      this.info.fontcolor("white");
       this.info = this.info + '\t' + "Floor: " + arr[0] + '\n';
       this.info = this.info + '\t' + "Aisle #: " + arr[1] + '\n';
       this.info = this.info + '\t' + "Range: " + arr[2] + '\n';
