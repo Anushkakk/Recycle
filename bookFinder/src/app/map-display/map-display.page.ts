@@ -158,7 +158,7 @@ export class MapDisplayPage implements OnInit {
     
     if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
         console.log(this.bookValues);
-        setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 200);
+        setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
     /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
     if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))

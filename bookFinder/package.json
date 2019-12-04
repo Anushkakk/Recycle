@@ -29,6 +29,7 @@
     "core-js": "^2.5.4",
     "impetus": "^0.8.8",
     "ngx-pinch-zoom": "^1.2.5",
+    "node-sass": "^4.13.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.8.29"
