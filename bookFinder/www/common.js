@@ -92,7 +92,7 @@ var _sPassive,GestureController=function(){function t(t){this.doc=t,this.gesture
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Book Finder</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding style=\"white-space: pre-wrap\">\n\n  <!--style=\"height:100%;width:100%\"-->\n<pinch-zoom>    \n<canvas id=\"canvas\" style=\"width:100%; height: 70%\">  \n</canvas>\n</pinch-zoom>\n\n <br>\n\n {{info}}\n\n</ion-content>\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>Book Finder</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content padding style=\"white-space: pre-wrap\">\r\n\r\n  <!--style=\"height:100%;width:100%\"-->\r\n<pinch-zoom>    \r\n<canvas id=\"canvas\" style=\"width:100%; height: 70%\">  \r\n</canvas>\r\n</pinch-zoom>\r\n\r\n <br>\r\n\r\n {{info}}\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -103,7 +103,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Book Finder</ion
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-content {\n  --background: url('/assets/Background2.png') no-repeat center/cover fixed;\n  --color: #ffffff; }\n\nion-title {\n  background-color: #262748;\n  color: #ffffff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdGVybHkvRGVza3RvcC9Cb29rIEFwcC9ib29raXNoLXdhZmZsZS9ib29rRmluZGVyL3NyYy9hcHAvbWFwLWRpc3BsYXkvbWFwLWRpc3BsYXkucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUkseUVBQWE7RUFDYixnQkFBUSxFQUFBOztBQUlaO0VBRUkseUJBQXlCO0VBQ3pCLGNBQWMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21hcC1kaXNwbGF5L21hcC1kaXNwbGF5LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IHtcbiAgICBcbiAgICAtLWJhY2tncm91bmQ6IHVybCgnL2Fzc2V0cy9CYWNrZ3JvdW5kMi5wbmcnKSBuby1yZXBlYXQgY2VudGVyL2NvdmVyIGZpeGVkO1xuICAgIC0tY29sb3I6ICNmZmZmZmY7XG5cbn1cblxuaW9uLXRpdGxlIHtcblxuICAgIGJhY2tncm91bmQtY29sb3I6ICMyNjI3NDg7XG4gICAgY29sb3I6ICNmZmZmZmY7XG4gICAgXG59XG5cbiJdfQ== */"
+module.exports = "ion-content {\n  --background: url('/assets/Background2.png') no-repeat center/cover fixed;\n  --color: #ffffff; }\n\nion-header {\n  --ion-background-color: #262748;\n  text-align: center; }\n\nion-title {\n  background-color: #262748;\n  color: #ffffff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLWRpc3BsYXkvQzpcXFVzZXJzXFxTRGVyYVxcRGVza3RvcFxcQm9va0ZpbmRlclByb2plY3RcXGJvb2tpc2gtd2FmZmxlXFxib29rRmluZGVyL3NyY1xcYXBwXFxtYXAtZGlzcGxheVxcbWFwLWRpc3BsYXkucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUkseUVBQWE7RUFDYixnQkFBUSxFQUFBOztBQUlaO0VBRUksK0JBQXVCO0VBQ3ZCLGtCQUFrQixFQUFBOztBQUd0QjtFQUVJLHlCQUF5QjtFQUN6QixjQUFjLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9tYXAtZGlzcGxheS9tYXAtZGlzcGxheS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudCB7XHJcbiAgICBcclxuICAgIC0tYmFja2dyb3VuZDogdXJsKCcvYXNzZXRzL0JhY2tncm91bmQyLnBuZycpIG5vLXJlcGVhdCBjZW50ZXIvY292ZXIgZml4ZWQ7XHJcbiAgICAtLWNvbG9yOiAjZmZmZmZmO1xyXG5cclxufVxyXG5cclxuaW9uLWhlYWRlciB7XHJcbiAgICAvLy0taW9uLWJhY2tncm91bmQtY29sb3I6ICMzYjM2NTI7XHJcbiAgICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOiAjMjYyNzQ4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG5pb24tdGl0bGUge1xyXG5cclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMyNjI3NDg7XHJcbiAgICBjb2xvcjogI2ZmZmZmZjtcclxuICAgIFxyXG59XHJcblxyXG4iXX0= */"
 
 /***/ }),
 
