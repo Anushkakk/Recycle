@@ -58,16 +58,46 @@ export class MapDisplayPage implements OnInit {
     //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
 
     // Create then adjusts the height and width of the canvas element
+    
     let canvas = <HTMLCanvasElement>document.getElementById('canvas');
     let img = this.images[floor_number-1];
     console.log(this.images[floor_number-1]);
     canvas.height = img.height;//this is the actual code img.height;
     canvas.width = img.width;// editing this for the presentation with Sewell img.width;
     
-    // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
     let ctx = canvas.getContext("2d");
 
     console.log(img);
+
+    ctx.drawImage(img,0,0);
+
+    // Create an offscreen buffer
+    
+    const bufferCanvas = document.createElement('canvas');
+    const bufferCtx = bufferCanvas.getContext('2d');
+
+    // Scale the buffer canvas to match our image
+    
+    bufferCanvas.width = img.width;
+    bufferCanvas.height = img.height;
+    console.log("Width: " + bufferCanvas.width + " Height: " + bufferCanvas.height);
+    
+    if (bufferCtx && ctx) {
+      console.log("HIIIIII");
+      // Draw image to canvas
+      bufferCtx.drawImage(img, 0, 0, bufferCanvas.width, bufferCanvas.height);
+      // Draw a rectangle in the center
+      bufferCtx.fillRect(img.width / 2 - 5, img.height / 2 - 5, 1000, 1000);
+
+      // Draw the buffer to the main canvas
+      ctx.drawImage(bufferCanvas, 0, 0, img.width, img.height);
+    }
+    
+    // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
+    /* let ctx = canvas.getContext("2d");
+
+    console.log(img);
+
     ctx.drawImage(img,0,0);
 
     var xoffset = 0;
@@ -111,8 +141,8 @@ export class MapDisplayPage implements OnInit {
     ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
     ctx.fillStyle = "red";
     ctx.fill();
+    */
   }
-
   decode(arr: Array<String>) {
     if(arr[0] == '2' && arr[1] == '4' && arr[2] == '35' && arr[3] == 'A') {
       //this.info = "Call Number 1: Empty" + '\n';
@@ -158,7 +188,7 @@ export class MapDisplayPage implements OnInit {
     
     if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
         console.log(this.bookValues);
-       // setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
+    setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
     /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
     if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))
