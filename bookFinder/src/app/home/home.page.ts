@@ -9,13 +9,16 @@ const splitAt = index => x => [x.slice(0, index), x.slice(index)]
 
 //Define Ionic Home Page component
 @Component({
+
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  
 })
 
 
 export class HomePage {
+
   public rootPage: any = HomePage;     //Define the Home Page as the root page
   stackData  = "";                     //Global string for holding value returned by database
   lCallNum   = "";                     //Global string (local to this file) that will hold the user call number
@@ -29,15 +32,18 @@ export class HomePage {
 
   //Constructor for routing from Home Page to Map Display Page
   constructor(public http: Http, private router: Router) {
+    
     const routes: Routes = [
       { path: 'home', component: HomePage },
       { path: 'map-display', component: MapDisplayPage },
     ];
     this.http = http;
+
   }
 
   //Function to convert user entered call number into correctly formatted LoC Call Number string
   normalize() {
+    
     var cutterNum = 0;  //Variable representing how many cutters are in the call number
     var str1, str2;     //Helper variables to hold 2 parts of a separated string
 
@@ -51,27 +57,31 @@ export class HomePage {
 
       //If the second character is a number, place a space before the second character
       if(this.lCallNum.charCodeAt(1) >= 48 && this.lCallNum.charCodeAt(1) <= 57) {
+        
         this.lCallNum = splitAt(1)(this.lCallNum).join(' ');
+
       }
 
       //Otherwise, place a space after the second character
-      else if((this.lCallNum.charCodeAt(1) >= 65 && this.lCallNum.charCodeAt(1) <= 90) ||
+      else if ((this.lCallNum.charCodeAt(1) >= 65 && this.lCallNum.charCodeAt(1) <= 90) ||
       (this.lCallNum.charCodeAt(1) >= 97 && this.lCallNum.charCodeAt(1) <= 122)) {
+        
         this.lCallNum = splitAt(2)(this.lCallNum).join(' ');
+
       }
 
     //Continue reading until a period (.) is found
-    for(var i = 2; i < this.lCallNum.length; ++i) {
+    for (var i = 2; i < this.lCallNum.length; ++i) {
       
       //To prevent accidental infinite loops
       if(i > 50)
         break;
 
       //When a period is found
-      if(this.lCallNum.charAt(i) == '.' && cutterNum == 0) {
+      if (this.lCallNum.charAt(i) == '.' && cutterNum == 0) {
         //Read the next character. If it is a number, it's still part of the classification number
         //If it is a letter, it's the beginning of the cutter and a space is added before the period
-        if((this.lCallNum.charCodeAt(i + 1) >= 65 && this.lCallNum.charCodeAt(i + 1) <= 90) ||
+        if ((this.lCallNum.charCodeAt(i + 1) >= 65 && this.lCallNum.charCodeAt(i + 1) <= 90) ||
         (this.lCallNum.charCodeAt(i + 1) >= 97 && this.lCallNum.charCodeAt(i + 1) <= 122)) {
           this.lCallNum = splitAt(i)(this.lCallNum).join(' ');
           cutterNum = 1;
@@ -80,61 +90,75 @@ export class HomePage {
       }
 
       //Continue reading in characters.  If a c or a C is found, check the next letter
-      if(this.lCallNum.charAt(i) == 'c' || this.lCallNum.charAt(i) == 'C') {
+      if (this.lCallNum.charAt(i) == 'c' || this.lCallNum.charAt(i) == 'C') {
         //If it's a period, its a copy number and a space is added before the c
-        if(this.lCallNum.charAt(i + 1) == '.') {
+        if (this.lCallNum.charAt(i + 1) == '.') {
+          
           this.lCallNum = splitAt(i)(this.lCallNum).join(' ');
           i += 3;
+
         }
         //Otherwise, this is a second cutter and a space is added before the c
         else {
+
           this.lCallNum = splitAt(i)(this.lCallNum).join(' ');
           i++;
+
         }
       }
 
       //If a v or a V is found, check the next letter
-      if(this.lCallNum.charAt(i) == 'v' || this.lCallNum.charAt(i) == 'V') {
+      if (this.lCallNum.charAt(i) == 'v' || this.lCallNum.charAt(i) == 'V') {
         //If it's a period, its a version number and a space is added before the v
-        if(this.lCallNum.charAt(i + 1) == '.') {
+        if (this.lCallNum.charAt(i + 1) == '.') {
           this.lCallNum = splitAt(i)(this.lCallNum).join(' ');
           i += 3;
         }
         //Otherwise, this is a second cutter and a space is added before the v
         else {
+          
           this.lCallNum = splitAt(i)(this.lCallNum).join(' ');
           i++;
+
         }
+
       }
 
       //If a period is found, this is a second cutter, the period should be removed and a space
       //is added before the letter
-      if(this.lCallNum.charAt(i) == '.' && cutterNum == 1) {
+      if (this.lCallNum.charAt(i) == '.' && cutterNum == 1) {
+        
         str1 = this.lCallNum.substr(0, i);
         str2 = this.lCallNum.substr(i);
         str2 = str2.substr(1);
         this.lCallNum = str1 + ' ' + str2;
         i += 2;
+
       }
 
       //If any other letter is found, (not c or v), this is a second cutter and a space is
       //added before the letter
-      if((this.lCallNum.charCodeAt(i) >= 65 && this.lCallNum.charCodeAt(i) <= 90) ||
+      if ((this.lCallNum.charCodeAt(i) >= 65 && this.lCallNum.charCodeAt(i) <= 90) ||
       (this.lCallNum.charCodeAt(i) >= 97 && this.lCallNum.charCodeAt(i) <= 122)) {
 
-        if(!(this.lCallNum.charAt(i) == 'v' || this.lCallNum.charAt(i) == 'V' ||
+        if (!(this.lCallNum.charAt(i) == 'v' || this.lCallNum.charAt(i) == 'V' ||
         this.lCallNum.charAt(i) == 'c' || this.lCallNum.charAt(i) == 'C')) {
+          
           this.lCallNum = splitAt(i)(this.lCallNum).join(' ');
           i++;
+
         }
 
       }
+
     }
+
   }
 
   //Function to retrieve library info by querying the database for the user's call number and collection
   //This function is called when the submit button is pressed on the home page
   load() {
+
     //normalize the user's call number
     this.normalize();
 
@@ -150,10 +174,14 @@ export class HomePage {
 
       this.router.navigateByUrl('map-display/:' + this.stackData);
     },
+    
     (error : any) =>
+
     {
       //If the connection doesn't work, an error message is sent.
       alert(error); 
     });
+
   }
+
 }

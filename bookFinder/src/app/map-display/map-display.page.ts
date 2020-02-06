@@ -41,6 +41,7 @@ export class MapDisplayPage implements OnInit {
   }
 
   showFloor(floor_number: number, arr: Array<String>) {
+   // Boolean isIphone = false;
     /*
     Creates a blank background (no floor plan) for when you
     have not chosen a floor yet
@@ -59,101 +60,112 @@ export class MapDisplayPage implements OnInit {
 
     // Create then adjusts the height and width of the canvas element
     
-    let canvas = <HTMLCanvasElement>document.getElementById('canvas');
-    let img = this.images[floor_number-1];
-    console.log(this.images[floor_number-1]);
-    canvas.height = img.height;//this is the actual code img.height;
-    canvas.width = img.width;// editing this for the presentation with Sewell img.width;
+
+    var canvas = document.createElement('canvas');
+    document.getElementById("canvasContainer").appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    var img = document.createElement('img');
+    img.onload = function() {
+
+        alert("image is loaded");
+        // get the scale
+        var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+        // get the top left position of the image
+        var x = (canvas.width / 2) - (img.width / 2) * scale;
+        var y = (canvas.height / 2) - (img.height / 2) * scale;
+        ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale); //ctx.drawImage(img, 0 , 0);
+        
+        var xoffset = 0;
+        var yoffset = 0;
+        var stackNum = 0;
     
-    let ctx = canvas.getContext("2d");
+        switch (arr[1]) {
+          
+          case '1':
+            xoffset = 4326;
+            yoffset = 3395;
+            break;
 
-    console.log(img);
+          case '2':
+            xoffset = 3685;
+            yoffset = 3395;
+            stackNum = 5;
+            break;
 
-    ctx.drawImage(img,0,0);
+          case '3':
+            xoffset = 2340;
+            yoffset = 3165;
+            stackNum = 10;
+            break;
 
-    // Create an offscreen buffer
+          case '4':
+            xoffset = 1750;
+            yoffset = 3165;
+            stackNum = 30;
+            break;
+
+          case '5':
+            xoffset = 1135;
+            yoffset = 3165;
+            stackNum = 44;
+            break;
+
+        }
     
-    const bufferCanvas = document.createElement('canvas');
-    const bufferCtx = bufferCanvas.getContext('2d');
+        yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112)
+        
+        if(arr[3] == 'B') {
 
-    // Scale the buffer canvas to match our image
+          yoffset = yoffset - 27;
+          
+        }
     
-    bufferCanvas.width = img.width;
-    bufferCanvas.height = img.height;
-    console.log("Width: " + bufferCanvas.width + " Height: " + bufferCanvas.height);
-    
-    if (bufferCtx && ctx) {
-      console.log("HIIIIII");
-      // Draw image to canvas
-      bufferCtx.drawImage(img, 0, 0, bufferCanvas.width, bufferCanvas.height);
-      // Draw a rectangle in the center
-      bufferCtx.fillRect(img.width / 2 - 5, img.height / 2 - 5, 1000, 1000);
+        ctx.beginPath();
+        ctx.arc(0, 0, 35, 0, 2 * Math.PI);//ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
+        ctx.fillStyle = "red";
+        ctx.fill();
 
-      // Draw the buffer to the main canvas
-      ctx.drawImage(bufferCanvas, 0, 0, img.width, img.height);
+    };
+
+    img.src = this.images[floor_number-1].src;
+    
+    if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
+
+      canvas.height = window.outerHeight/2;
+      canvas.width = window.outerWidth;
+
+    } else {
+
+      canvas.height = screen.height/2;
+      canvas.width = screen.width;
+
     }
     
-    // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
-    /* let ctx = canvas.getContext("2d");
+    img.height = canvas.height;
+    img.width = canvas.width;
 
-    console.log(img);
+    console.log("imgh: " + img.height + "imgw: " + img.width);
 
-    ctx.drawImage(img,0,0);
-
-    var xoffset = 0;
-    var yoffset = 0;
-    var stackNum = 0;
-
-    switch (arr[1]) {
-      case '1':
-        xoffset = 4326;
-        yoffset = 3395;
-        break;
-      case '2':
-        xoffset = 3685;
-        yoffset = 3395;
-        stackNum = 5;
-        break;
-      case '3':
-        xoffset = 2340;
-        yoffset = 3165;
-        stackNum = 10;
-        break;
-      case '4':
-        xoffset = 1750;
-        yoffset = 3165;
-        stackNum = 30;
-        break;
-      case '5':
-        xoffset = 1135;
-        yoffset = 3165;
-        stackNum = 44;
-        break;
-    }
-
-    yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112)
-    
-    if(arr[3] == 'B') {
-      yoffset = yoffset - 27;
-    }
-
-    ctx.beginPath();
-    ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
-    ctx.fillStyle = "red";
-    ctx.fill();
-    */
   }
+
+
   decode(arr: Array<String>) {
+    
     if(arr[0] == '2' && arr[1] == '4' && arr[2] == '35' && arr[3] == 'A') {
-      //this.info = "Call Number 1: Empty" + '\n';
+      
+      this.info = "Call Number 1: Empty" + '\n';
+
     }
+
     else {
+
       this.info = this.info + "Call Number:" + '\n';
       this.info.fontcolor("white");
       this.info = this.info + '\t' + "Floor: " + arr[0] + '\n';
       this.info = this.info + '\t' + "Aisle #: " + arr[1] + '\n';
       this.info = this.info + '\t' + "Range: " + arr[2] + '\n';
       this.info = this.info + '\t' + "Side: " + arr[3] + '\n';
+    
     }
 /*
     if(arr[4] == '2' && arr[5] == '4' && arr[6] == '35' && arr[7] == 'A') {
