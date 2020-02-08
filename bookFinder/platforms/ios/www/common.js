@@ -92,7 +92,7 @@ var _sPassive,GestureController=function(){function t(t){this.doc=t,this.gesture
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Book Finder</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding style=\"white-space: pre-wrap\">\n\n  <!--style=\"height:100%;width:100%\"-->\n<pinch-zoom>    \n<canvas id=\"canvas\" style=\"width:100%; height: 70%\">  \n</canvas>\n</pinch-zoom>\n\n <br>\n\n {{info}}\n\n</ion-content>\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>TCNJ Book Finder</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content padding style=\"white-space: pre-wrap\">\r\n  \r\n<div> \r\n<pinch-zoom>    \r\n<div id = \"canvasContainer\">  \r\n</div>\r\n</pinch-zoom>\r\n</div>\r\n<br>\r\n<div> {{info}} </div>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -103,7 +103,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Book Finder</ion
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-content {\n  --background: url('/assets/Background2.png') no-repeat center/cover fixed;\n  --color: #ffffff; }\n\nion-title {\n  background-color: #262748;\n  color: #ffffff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdGVybHkvRGVza3RvcC9Cb29rIEFwcC9ib29raXNoLXdhZmZsZS9ib29rRmluZGVyL3NyYy9hcHAvbWFwLWRpc3BsYXkvbWFwLWRpc3BsYXkucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUkseUVBQWE7RUFDYixnQkFBUSxFQUFBOztBQUlaO0VBRUkseUJBQXlCO0VBQ3pCLGNBQWMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21hcC1kaXNwbGF5L21hcC1kaXNwbGF5LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IHtcbiAgICBcbiAgICAtLWJhY2tncm91bmQ6IHVybCgnL2Fzc2V0cy9CYWNrZ3JvdW5kMi5wbmcnKSBuby1yZXBlYXQgY2VudGVyL2NvdmVyIGZpeGVkO1xuICAgIC0tY29sb3I6ICNmZmZmZmY7XG5cbn1cblxuaW9uLXRpdGxlIHtcblxuICAgIGJhY2tncm91bmQtY29sb3I6ICMyNjI3NDg7XG4gICAgY29sb3I6ICNmZmZmZmY7XG4gICAgXG59XG5cbiJdfQ== */"
+module.exports = "ion-content {\n  --background: url('/assets/Background2.png') no-repeat center/cover fixed;\n  --color: #ffffff; }\n\nion-header {\n  --ion-background-color: #262748;\n  text-align: center; }\n\nion-title {\n  background-color: #262748;\n  color: #ffffff; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLWRpc3BsYXkvQzpcXFVzZXJzXFxTRGVyYVxcRGVza3RvcFxcQm9va0ZpbmRlclByb2plY3RcXGJvb2tpc2gtd2FmZmxlXFxib29rRmluZGVyL3NyY1xcYXBwXFxtYXAtZGlzcGxheVxcbWFwLWRpc3BsYXkucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUkseUVBQWE7RUFDYixnQkFBUSxFQUFBOztBQUlaO0VBRUksK0JBQXVCO0VBQ3ZCLGtCQUFrQixFQUFBOztBQUd0QjtFQUVJLHlCQUF5QjtFQUN6QixjQUFjLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9tYXAtZGlzcGxheS9tYXAtZGlzcGxheS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudCB7XHJcbiAgICBcclxuICAgIC0tYmFja2dyb3VuZDogdXJsKCcvYXNzZXRzL0JhY2tncm91bmQyLnBuZycpIG5vLXJlcGVhdCBjZW50ZXIvY292ZXIgZml4ZWQ7XHJcbiAgICAtLWNvbG9yOiAjZmZmZmZmO1xyXG5cclxufVxyXG5cclxuaW9uLWhlYWRlciB7XHJcbiAgICAvLy0taW9uLWJhY2tncm91bmQtY29sb3I6ICMzYjM2NTI7XHJcbiAgICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOiAjMjYyNzQ4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG5pb24tdGl0bGUge1xyXG5cclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMyNjI3NDg7XHJcbiAgICBjb2xvcjogI2ZmZmZmZjtcclxuICAgIFxyXG59XHJcblxyXG5cclxuIl19 */"
 
 /***/ }),
 
@@ -148,6 +148,7 @@ var MapDisplayPage = /** @class */ (function () {
         return img;
     };
     MapDisplayPage.prototype.showFloor = function (floor_number, arr) {
+        // Boolean isIphone = false;
         /*
         Creates a blank background (no floor plan) for when you
         have not chosen a floor yet
@@ -161,56 +162,72 @@ var MapDisplayPage = /** @class */ (function () {
         console.log("The plan name is " + this.plan_names[floor_number]);
         //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
         // Create then adjusts the height and width of the canvas element
-        var canvas = document.getElementById('canvas');
-        var img = this.images[floor_number - 1];
-        console.log(this.images[floor_number - 1]);
-        canvas.height = img.height; //this is the actual code img.height;
-        canvas.width = img.width; // editing this for the presentation with Sewell img.width;
-        // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
-        var ctx = canvas.getContext("2d");
-        console.log(img);
-        ctx.drawImage(img, 0, 0);
-        var xoffset = 0;
-        var yoffset = 0;
-        var stackNum = 0;
-        switch (arr[1]) {
-            case '1':
-                xoffset = 4326;
-                yoffset = 3395;
-                break;
-            case '2':
-                xoffset = 3685;
-                yoffset = 3395;
-                stackNum = 5;
-                break;
-            case '3':
-                xoffset = 2340;
-                yoffset = 3165;
-                stackNum = 10;
-                break;
-            case '4':
-                xoffset = 1750;
-                yoffset = 3165;
-                stackNum = 30;
-                break;
-            case '5':
-                xoffset = 1135;
-                yoffset = 3165;
-                stackNum = 44;
-                break;
+        var canvas = document.createElement('canvas');
+        document.getElementById("canvasContainer").appendChild(canvas);
+        var ctx = canvas.getContext('2d');
+        var img = document.createElement('img');
+        img.onload = function () {
+            alert("image is loaded");
+            // get the scale
+            var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+            // get the top left position of the image
+            var x = (canvas.width / 2) - (img.width / 2) * scale;
+            var y = (canvas.height / 2) - (img.height / 2) * scale;
+            ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale); //ctx.drawImage(img, 0 , 0);
+            var xoffset = 0;
+            var yoffset = 0;
+            var stackNum = 0;
+            switch (arr[1]) {
+                case '1':
+                    xoffset = 4326;
+                    yoffset = 3395;
+                    break;
+                case '2':
+                    xoffset = 3685;
+                    yoffset = 3395;
+                    stackNum = 5;
+                    break;
+                case '3':
+                    xoffset = 2340;
+                    yoffset = 3165;
+                    stackNum = 10;
+                    break;
+                case '4':
+                    xoffset = 1750;
+                    yoffset = 3165;
+                    stackNum = 30;
+                    break;
+                case '5':
+                    xoffset = 1135;
+                    yoffset = 3165;
+                    stackNum = 44;
+                    break;
+            }
+            yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112);
+            if (arr[3] == 'B') {
+                yoffset = yoffset - 27;
+            }
+            ctx.beginPath();
+            ctx.arc(0, 0, 35, 0, 2 * Math.PI); //ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
+            ctx.fillStyle = "red";
+            ctx.fill();
+        };
+        img.src = this.images[floor_number - 1].src;
+        if (navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod") {
+            canvas.height = window.outerHeight / 2;
+            canvas.width = window.outerWidth;
         }
-        yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112);
-        if (arr[3] == 'B') {
-            yoffset = yoffset - 27;
+        else {
+            canvas.height = screen.height / 2;
+            canvas.width = screen.width;
         }
-        ctx.beginPath();
-        ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
-        ctx.fillStyle = "red";
-        ctx.fill();
+        img.height = canvas.height;
+        img.width = canvas.width;
+        console.log("imgh: " + img.height + "imgw: " + img.width);
     };
     MapDisplayPage.prototype.decode = function (arr) {
         if (arr[0] == '2' && arr[1] == '4' && arr[2] == '35' && arr[3] == 'A') {
-            //this.info = "Call Number 1: Empty" + '\n';
+            this.info = "Call Number 1: Empty" + '\n';
         }
         else {
             this.info = this.info + "Call Number:" + '\n';
