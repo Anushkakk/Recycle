@@ -50,8 +50,9 @@ export class HomePage {
     //Place the string in a file-local variable so it does not update the text box
     this.lCallNum = this.callNum;
 
-    //Remove all spaces from the string
+    //Remove all spaces from the string, and make the string all uppercase
     this.lCallNum = this.lCallNum.replace(/ /g, "");
+    this.lCallNum = this.lCallNum.toUpperCase();
 
     //Read the second character of the string (the first will always be a letter)
 
