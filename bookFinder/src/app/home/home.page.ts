@@ -154,6 +154,8 @@ export class HomePage {
 
     }
 
+    console.log("User Call Num Normalized: " + this.lCallNum);
+
   }
 
   //Function to retrieve library info by querying the database for the user's call number and collection
@@ -173,7 +175,7 @@ export class HomePage {
 
       console.log(this.stackData);
 
-      this.router.navigateByUrl('map-display/:' + this.stackData);
+      //this.router.navigateByUrl('map-display/:' + this.stackData);
     },
     
     (error : any) =>
