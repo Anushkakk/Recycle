@@ -4,11 +4,14 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 
 @Component({
+  
   selector: 'app-map-display',
   templateUrl: './map-display.page.html',
   styleUrls: ['./map-display.page.scss'],
+
 })
 export class MapDisplayPage implements OnInit {
+
   navCtrl: any;
   images = [];
   current_floor = 5;
@@ -23,29 +26,28 @@ export class MapDisplayPage implements OnInit {
 
   constructor(public activeRoute:ActivatedRoute) {
     
-    for(let i = 0; i < 4; i++) {
+    for(let i = 0; i < 5; i++) {
+
       let plan_uri = "assets/maps/".concat(i.toString(), ".png");
       this.plans.push(plan_uri);
       this.plan_names[i] = this.plan_names[i] + " Level";
       this.images.push(this.createImage(this.plans[i], this.plan_names[i]));
+
     }
 
    }
 
   createImage(src: string, title: string) {
+
     let img = new Image();
     img.src = src;
     img.alt = title;
     img.title = title;
     return img;
+
   }
 
   showFloor(floor_number: number, arr: Array<String>) {
-   // Boolean isIphone = false;
-    /*
-    Creates a blank background (no floor plan) for when you
-    have not chosen a floor yet
-    */
 
     if(floor_number === 5)
       return;
@@ -56,34 +58,31 @@ export class MapDisplayPage implements OnInit {
 
     console.log("This number is " + floor_number);
     console.log("The plan name is " + this.plan_names[floor_number]);
-    //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
-
-    // Create then adjusts the height and width of the canvas element
-    
 
     var canvas = document.createElement('canvas');
     document.getElementById("canvasContainer").appendChild(canvas);
     var ctx = canvas.getContext('2d');
     var img = document.createElement('img');
+    
     img.onload = function() {
 
-        alert("image is loaded");
         // get the scale
         var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
         // get the top left position of the image
         var x = (canvas.width / 2) - (img.width / 2) * scale;
         var y = (canvas.height / 2) - (img.height / 2) * scale;
-        ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale); //ctx.drawImage(img, 0 , 0);
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);//ctx.drawImage(img, x , y);
         
         var xoffset = 0;
+        var xShelfJump = 5;
         var yoffset = 0;
         var stackNum = 0;
     
         switch (arr[1]) {
-          
+
           case '1':
-            xoffset = 4326;
-            yoffset = 3395;
+            xoffset = 298;
+            yoffset = 312;
             break;
 
           case '2':
@@ -110,24 +109,34 @@ export class MapDisplayPage implements OnInit {
             stackNum = 44;
             break;
 
+          default:
+            xoffset = 0;
+            yoffset = 0;
+            stackNum = 0;
+              
         }
     
-        yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112)
-        
-        if(arr[3] == 'B') {
+        yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 11); //number is the distance between shelves
 
-          yoffset = yoffset - 27;
+        if (stackNum > 4)
+          yoffset -= xShelfJump;
+
+        if (arr[3] == 'B') {
+
+          yoffset = yoffset - 4;
           
         }
     
-        ctx.beginPath();
-        ctx.arc(0, 0, 35, 0, 2 * Math.PI);//ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
+        console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
+        console.log("imgh" + img.height + " imgw" + img.width);
+        ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
+        ctx.arc(xoffset, yoffset, 4, 0, 2 * Math.PI);//ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI); 
         ctx.fillStyle = "red";
         ctx.fill();
 
     };
 
-    img.src = this.images[floor_number-1].src;
+    img.src = this.images[floor_number].src;
     
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
@@ -141,10 +150,9 @@ export class MapDisplayPage implements OnInit {
 
     }
     
-    img.height = canvas.height;
-    img.width = canvas.width;
+    //img.height = canvas.height;
+    //img.width = canvas.width;
 
-    console.log("imgh: " + img.height + "imgw: " + img.width);
 
   }
 
@@ -193,6 +201,7 @@ export class MapDisplayPage implements OnInit {
   }
 
   ngOnInit() {
+    
     this.dataRecv = this.activeRoute.snapshot.paramMap.get('data');
     this.dataRecv = this.dataRecv.substr(1);
     this.bookValues = this.dataRecv.split(",", 12);
@@ -200,11 +209,21 @@ export class MapDisplayPage implements OnInit {
     
     if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
         console.log(this.bookValues);
-    setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
+    
+        setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
+    
     /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
     if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))
         this.showFloor(Number(this.bookValues[8]));*/
+
   }
 
+  /*load() {
+
+    this.router.navigateByUrl('map-display/');
+
+
+  }
+*/
 }

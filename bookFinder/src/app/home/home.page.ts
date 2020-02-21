@@ -2,7 +2,9 @@ import { Component } from '@angular/core';                           //Import Io
 import { Http } from '@angular/http';                                //Allow HTTP requests
 import { MapDisplayPage } from '../map-display/map-display.page';    //Get info from Map Display Page
 import { Routes } from '@angular/router';                            //Import Router for navigating pages
-import { Router } from '@angular/router';                            //Import Router for navigating pages
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from '../modal/modal.page';                   //Import Router for navigating pages
 
 //Define function for splitting a string at an index
 const splitAt = index => x => [x.slice(0, index), x.slice(index)]
@@ -15,6 +17,7 @@ const splitAt = index => x => [x.slice(0, index), x.slice(index)]
   styleUrls: ['home.page.scss'],
   
 })
+
 
 
 export class HomePage {
@@ -31,14 +34,30 @@ export class HomePage {
   storage: any;
 
   //Constructor for routing from Home Page to Map Display Page
-  constructor(public http: Http, private router: Router) {
+  constructor(public http: Http, private router: Router, public modalController: ModalController) {
     
     const routes: Routes = [
       { path: 'home', component: HomePage },
       { path: 'map-display', component: MapDisplayPage },
+      { path: 'modal', component: ModalPage},
     ];
     this.http = http;
 
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalPage
+    });
+    return await modal.present();
+  }
+
+  dismiss() {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+      'dismissed': true
+    });
   }
 
   //Function to convert user entered call number into correctly formatted LoC Call Number string

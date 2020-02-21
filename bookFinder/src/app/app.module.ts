@@ -11,11 +11,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HttpModule } from '@angular/http';
+import { ScModalModule } from 'angular-5-popup';
+import {ModalPageModule} from './modal/modal.module'
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, HttpModule],
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, HttpModule, ScModalModule, ModalPageModule],
   providers: [
     StatusBar,
     SplashScreen,

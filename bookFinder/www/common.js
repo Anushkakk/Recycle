@@ -148,11 +148,6 @@ var MapDisplayPage = /** @class */ (function () {
         return img;
     };
     MapDisplayPage.prototype.showFloor = function (floor_number, arr) {
-        // Boolean isIphone = false;
-        /*
-        Creates a blank background (no floor plan) for when you
-        have not chosen a floor yet
-        */
         if (floor_number === 5)
             return;
         // Set title of page
@@ -160,14 +155,11 @@ var MapDisplayPage = /** @class */ (function () {
         //if (!document.getElementById("floor_number")) { return; }
         console.log("This number is " + floor_number);
         console.log("The plan name is " + this.plan_names[floor_number]);
-        //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
-        // Create then adjusts the height and width of the canvas element
         var canvas = document.createElement('canvas');
         document.getElementById("canvasContainer").appendChild(canvas);
         var ctx = canvas.getContext('2d');
         var img = document.createElement('img');
         img.onload = function () {
-            alert("image is loaded");
             // get the scale
             var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
             // get the top left position of the image
@@ -175,12 +167,13 @@ var MapDisplayPage = /** @class */ (function () {
             var y = (canvas.height / 2) - (img.height / 2) * scale;
             ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale); //ctx.drawImage(img, 0 , 0);
             var xoffset = 0;
+            var xShelfJump = 5;
             var yoffset = 0;
             var stackNum = 0;
             switch (arr[1]) {
                 case '1':
-                    xoffset = 4326;
-                    yoffset = 3395;
+                    xoffset = 298;
+                    yoffset = 312;
                     break;
                 case '2':
                     xoffset = 3685;
@@ -202,13 +195,20 @@ var MapDisplayPage = /** @class */ (function () {
                     yoffset = 3165;
                     stackNum = 44;
                     break;
+                default:
+                    xoffset = 0;
+                    yoffset = 0;
+                    stackNum = 0;
             }
-            yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 112);
+            yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 11); //number is the distance between shelves
+            if (stackNum > 4)
+                yoffset -= xShelfJump;
             if (arr[3] == 'B') {
-                yoffset = yoffset - 27;
+                yoffset = yoffset - 4;
             }
-            ctx.beginPath();
-            ctx.arc(0, 0, 35, 0, 2 * Math.PI); //ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI);
+            console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
+            ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
+            ctx.arc(xoffset, yoffset, 4, 0, 2 * Math.PI); //ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI); 
             ctx.fillStyle = "red";
             ctx.fill();
         };
@@ -223,7 +223,6 @@ var MapDisplayPage = /** @class */ (function () {
         }
         img.height = canvas.height;
         img.width = canvas.width;
-        console.log("imgh: " + img.height + "imgw: " + img.width);
     };
     MapDisplayPage.prototype.decode = function (arr) {
         if (arr[0] == '2' && arr[1] == '4' && arr[2] == '35' && arr[3] == 'A') {

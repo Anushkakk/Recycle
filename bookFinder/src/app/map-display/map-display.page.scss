@@ -9,13 +9,22 @@ ion-header {
     //--ion-background-color: #3b3652;
     --ion-background-color: #262748;
     text-align: center;
+    border-color: red;
 }
 
 ion-title {
 
     background-color: #262748;
     color: #ffffff;
+    font-weight: normal;
     
+}
+
+#backButton {
+
+  color: #ffffff;
+  font-size: 85%;
+
 }
 
 
