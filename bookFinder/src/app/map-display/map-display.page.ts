@@ -56,8 +56,12 @@ export class MapDisplayPage implements OnInit {
     //document.getElementById("floor_name").innerHTML = this.plan_names[floor_number];
     //if (!document.getElementById("floor_number")) { return; }
 
-    console.log("This number is " + floor_number);
-    console.log("The plan name is " + this.plan_names[floor_number]);
+    //console.log("This number is " + floor_number);
+    //console.log("The plan name is " + this.plan_names[floor_number]);
+    //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
+
+    // Create then adjusts the height and width of the canvas element
+    
 
     var canvas = document.createElement('canvas');
     document.getElementById("canvasContainer").appendChild(canvas);
@@ -66,6 +70,7 @@ export class MapDisplayPage implements OnInit {
     
     img.onload = function() {
 
+        //alert("image is loaded");
         // get the scale
         var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
         // get the top left position of the image
@@ -153,6 +158,7 @@ export class MapDisplayPage implements OnInit {
     //img.height = canvas.height;
     //img.width = canvas.width;
 
+    //console.log("imgh: " + img.height + "imgw: " + img.width);
 
   }
 
@@ -208,10 +214,8 @@ export class MapDisplayPage implements OnInit {
     this.decode(this.bookValues);
     
     if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
-        console.log(this.bookValues);
-    
-        setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
-    
+        //console.log(this.bookValues);
+    setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
     /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
     if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))

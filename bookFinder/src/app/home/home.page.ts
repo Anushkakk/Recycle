@@ -62,7 +62,16 @@ export class HomePage {
 
   //Function to convert user entered call number into correctly formatted LoC Call Number string
   normalize() {
-    
+    if(this.collection == "General Collection") {
+      this.normalizeGeneral();
+    }
+    else if(this.collection == "Children's Collection") {
+      this.normalizeChildrens();
+    }
+  }
+
+  //Function to convert user entered call number into correctly formatted LoC Call Number string
+  normalizeGeneral() {
     var cutterNum = 0;  //Variable representing how many cutters are in the call number
     var str1, str2;     //Helper variables to hold 2 parts of a separated string
 
@@ -76,23 +85,18 @@ export class HomePage {
     //Read the second character of the string (the first will always be a letter)
 
       //If the second character is a number, place a space before the second character
-      if(this.lCallNum.charCodeAt(1) >= 48 && this.lCallNum.charCodeAt(1) <= 57) {
-        
+      if(this.lCallNum.charCodeAt(1) >= 48 && this.lCallNum.charCodeAt(1) <= 57) { 
         this.lCallNum = splitAt(1)(this.lCallNum).join(' ');
-
       }
 
       //Otherwise, place a space after the second character
       else if ((this.lCallNum.charCodeAt(1) >= 65 && this.lCallNum.charCodeAt(1) <= 90) ||
       (this.lCallNum.charCodeAt(1) >= 97 && this.lCallNum.charCodeAt(1) <= 122)) {
-        
         this.lCallNum = splitAt(2)(this.lCallNum).join(' ');
-
       }
 
     //Continue reading until a period (.) is found
     for (var i = 2; i < this.lCallNum.length; ++i) {
-      
       //To prevent accidental infinite loops
       if(i > 50)
         break;
@@ -173,6 +177,21 @@ export class HomePage {
 
     }
 
+    console.log("User Call Num Normalized: " + this.lCallNum);
+
+  }
+
+  normalizeChildrens() {
+    //Place the string in a file-local variable so it does not update the text box
+    this.lCallNum = this.callNum;
+
+    //Make the string all uppercase
+    //this.lCallNum = this.lCallNum.replace(/ /g, "");
+    this.lCallNum = this.lCallNum.toUpperCase();
+
+    if(this.lCallNum.substring(0, 4) == "FICT") {
+      this.lCallNum = this.lCallNum.substring(5);
+    }
   }
 
   //Function to retrieve library info by querying the database for the user's call number and collection
