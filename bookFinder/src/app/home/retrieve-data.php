@@ -24,7 +24,27 @@
    $CN_Version;
    $CN_Copy;
 
-   function compare() {
+
+
+   $BC_IDNum;
+   $BC_IDString;
+
+   $EC_IDNum;
+   $EC_IDString;
+
+   $CN_IDNum;
+   $CN_IDString;
+
+   function compare($collection) {
+      if($collection == "General Collection") {
+         return compareGeneral();
+      }
+      else if ($collection == "Children's Collection") {
+         return compareChildrens();
+      }
+   }
+
+   function compareGeneral() {
       //Check if the user entered call number falls within the range
       $beginMatch = 0;
       $beginSubjectMatch = 0;
@@ -196,10 +216,7 @@
          //if (strpos($GLOBALS['CN_ClassNum'], '.') !== false) {
             if ((double) $GLOBALS['CN_ClassNum'] < (double) $GLOBALS['EC_ClassNum']) {
                $endMatch = 1;
-               echo "End Match: Ending Call Number: " . $GLOBALS['EC_Subject'] . $GLOBALS['EC_ClassNum'] . $GLOBALS['EC_Cutter1'] . "\n";
             } else if ((double) $GLOBALS['CN_ClassNum'] <= (double) $GLOBALS['EC_ClassNum']) {
-               echo "End Class Match: Ending Call Number: " . $GLOBALS['EC_Subject'] . $GLOBALS['EC_ClassNum'] . $GLOBALS['EC_Cutter1'] . "\n";
-               echo "User Class Num: " . (double) $GLOBALS['CN_ClassNum'] . "\tEnd Class Num: " . (double) $GLOBALS['EC_ClassNum'] . "\n";
                $endClassMatch = 1;
             }
             /*
@@ -341,7 +358,90 @@
 
    }
 
-   function assignCN($CN_Arr) {
+   function compareChildrens() {
+      $beginMatch = 0;
+      $endMatch = 0;
+
+      if((double)$GLOBALS['CN_IDNum'] == (double)$GLOBALS['BC_IDNum']) {
+         if($GLOBALS['CN_IDString'] >= $GLOBALS['BC_IDString']) $beginMatch = 1;
+      }
+      else if((double)$GLOBALS['CN_IDNum'] > (double)$GLOBALS['BC_IDNum']) $beginMatch = 1;
+
+      if((double)$GLOBALS['CN_IDNum'] == (double)$GLOBALS['EC_IDNum']) {
+         if ($GLOBALS['CN_IDString'] <= $GLOBALS['EC_IDString']) $endMatch = 1;
+      }
+      else if ((double)$GLOBALS['CN_IDNum'] <= (double)$GLOBALS['EC_IDNum']) {
+         $endMatch = 1;
+      }
+
+      if($beginMatch && $endMatch) return 1;
+      else return 0;
+   }
+
+   function assignCN($CN_Arr, $collection) {
+      if($collection == "General Collection") {
+         assignGeneralCN($CN_Arr);
+      }
+
+      else if($collection == "Children's Collection") {
+         assignChildrensCN($CN_Arr);
+      }
+   }
+
+   function assignBC($BC_Arr, $collection) {
+      if($collection == "General Collection") {
+         assignGeneralBC($BC_Arr);
+      }
+
+      else if($collection == "Children's Collection") {
+         assignChildrensBC($BC_Arr);
+      }
+   }
+
+   function assignEC($EC_Arr, $collection) {
+      if($collection == "General Collection") {
+         assignGeneralEC($EC_Arr);
+      }
+
+      else if($collection == "Children's Collection") {
+         assignChildrensEC($EC_Arr);
+      }
+   }
+
+   function assignChildrensCN($CN_Arr) {
+      if(ord(substr($CN_Arr[0], 0, 1)) >= 65 && ord(substr($CN_Arr[0], 0, 1)) <= 90) {
+         $GLOBALS['CN_IDNum'] = "9999";
+         $GLOBALS['CN_IDString'] = $CN_Arr[0];
+      }
+      else {
+         $GLOBALS['CN_IDNum'] = $CN_Arr[0];
+         $GLOBALS['CN_IDString'] = $CN_Arr[1];
+      }
+   }
+
+   function assignChildrensBC($BC_Arr) {
+      if(ord(substr($BC_Arr[0], 0, 1)) >= 65 && ord(substr($BC_Arr[0], 0, 1)) <= 90) {
+         $GLOBALS['BC_IDNum'] = "9999";
+         $GLOBALS['BC_IDString'] = $BC_Arr[0];
+      }
+      else {
+         $GLOBALS['BC_IDNum'] = $BC_Arr[0];
+         $GLOBALS['BC_IDString'] = $BC_Arr[1];
+      }
+   }
+
+   function assignChildrensEC($EC_Arr) {
+      if(ord(substr($EC_Arr[0], 0, 1)) >= 65 && ord(substr($EC_Arr[0], 0, 1)) <= 90) {
+         $GLOBALS['EC_IDNum'] = "9999";
+         $GLOBALS['EC_IDString'] = $EC_Arr[0];
+      }
+      else {
+         $GLOBALS['EC_IDNum'] = $EC_Arr[0];
+         $GLOBALS['EC_IDString'] = $EC_Arr[1];
+      }
+   }
+
+   function assignGeneralCN($CN_Arr) {
       if(sizeof($CN_Arr) > 0)
          $GLOBALS['CN_Subject'] = $CN_Arr[0];
       if(sizeof($CN_Arr) > 1)
@@ -376,7 +476,7 @@
       }
    }
    
-   function assignBC($BC_Arr) {
+   function assignGeneralBC($BC_Arr) {
       if(sizeof($BC_Arr) > 0)
          $GLOBALS['BC_Subject']  = $BC_Arr[0];
       if(sizeof($BC_Arr) > 1)
@@ -411,7 +511,7 @@
       }
    }
 
-   function assignEC($EC_Arr) {
+   function assignGeneralEC($EC_Arr) {
       if(sizeof($EC_Arr) > 0)
          $GLOBALS['EC_Subject']  = $EC_Arr[0];
       if(sizeof($EC_Arr) > 1)
@@ -447,21 +547,39 @@
    }
 
    function normalize($callNum, $collection) {
+      //if collection is general
       if ($collection == "General Collection") {
          $callNum = normalizeGeneral($callNum);
          return $callNum;
       }
 
-      if ($collection == "Children's Collection") {
+      //if collection is children's
+      else if ($collection == "Children's Collection") {
          $callNum = normalizeChildrens($callNum);
          return $callNum;
       }
 
       //if collection is curriculum reference
+      else if ($collection == "Curriculum Reference") {
+         $callNum = normalizeCurriculum($callNum);
+         return $callNum;
+      }
 
       //if collection is new textbook
+      else if ($collection == "New Textbook Collection") {
+         $callNum = normalizeNewTextbook($callNum);
+         return $callNum;
+      }
 
       //if collection is old textbook
+      else if ($collection == "Old Textbook Collection") {
+         $callNum = normalizeOldTextbook($callNum);
+         return $callNum;
+      }
+
+      else {
+         echo "Invalid Collection: " . $collection . "\n";
+      }
    }
 
    function normalizeGeneral($callNum) {
@@ -578,7 +696,26 @@
    }
 
    function normalizeChildrens($callNum) {
+      //$callNum =  str_replace(' ', '', $callNum);
+      $callNum = strtoupper($callNum);
 
+      if(substr($callNum, 0, 4) == "FICT") {
+         $callNum = substr($callNum, 5);
+      }
+
+      return $callNum;
+   }
+
+   function normalizeCurriculum($callNum) {
+      return $callNum;
+   }
+
+   function normalizeNewTextbook($callNum) {
+      return $callNum;
+   }
+
+   function normalizeOldTextbook($callNum) {
+      return $callNum;
    }
    
    //body {
@@ -603,7 +740,7 @@
       $collection = $request["collection"];
 
       $CN_Arr = explode(' ', $callnum);
-      assignCN($CN_Arr);
+      assignCN($CN_Arr, $collection);
 
       try {
          //Loop through each row of the database table
@@ -623,6 +760,12 @@
             $GLOBALS['EC_Cutter3'] = "";
             $GLOBALS['EC_Version'] = "";
             $GLOBALS['EC_Copy'] = "";
+
+            $GLOBALS['BC_IDNum'] = "";
+            $GLOBALS['BC_IDString'] = "";
+
+            $GLOBALS['EC_IDNum'] = "";
+            $GLOBALS['EC_IDString'] = "";
 
             //Get beginning call number
             $qry_db = 'SELECT begin_call FROM LibraryStacks WHERE row_num = ' . $i;
@@ -653,12 +796,12 @@
                $BC_Arr = explode(' ', $beginCall);
                $EC_Arr = explode(' ', $endCall);
                //Assign each piece of the beginning and end calls to a variable
-               assignBC($BC_Arr);
-               assignEC($EC_Arr);
+               assignBC($BC_Arr, $collection);
+               assignEC($EC_Arr, $collection);
 
                
 
-               $Match = compare();
+               $Match = compare($collection);
 
                //If match found, get stack info
                if($Match) {
