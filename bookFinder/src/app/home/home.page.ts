@@ -166,7 +166,6 @@ export class HomePage {
     this.lCallNum = this.callNum;
 
     //Make the string all uppercase
-    //this.lCallNum = this.lCallNum.replace(/ /g, "");
     this.lCallNum = this.lCallNum.toUpperCase();
 
     if(this.lCallNum.substring(0, 4) == "FICT") {
