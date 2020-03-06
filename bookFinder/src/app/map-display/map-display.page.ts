@@ -79,56 +79,89 @@ export class MapDisplayPage implements OnInit {
         ctx.drawImage(img, x, y, img.width * scale, img.height * scale);//ctx.drawImage(img, x , y);
         
         var xoffset = 0;
-        var xShelfJump = 5;
+        var xShelfJump = 4;
         var yoffset = 0;
         var stackNum = 0;
-    
-        switch (arr[1]) {
+        // low x is left, high x is right
+        // low y is top, high y is bottom
+
+        /* Testing **********/
+        arr[1] = '7'; // Aisle
+        arr[2] = '1'; // Range
+        arr[3] = 'A'; // Side
+        /********************/
+
+        switch (arr[1]) { 
 
           case '1':
-            xoffset = 298;
-            yoffset = 312;
+            xoffset = 680;  //298
+            yoffset = 320;
+            //yoffset = 312;  //312
+            //stackNum = 15;
             break;
 
           case '2':
-            xoffset = 3685;
-            yoffset = 3395;
-            stackNum = 5;
+            xoffset = 632; //3685
+            yoffset = 320;
+            //yoffset = 312; //3395
+            //stackNum = 15;   //5
             break;
 
           case '3':
-            xoffset = 2340;
-            yoffset = 3165;
-            stackNum = 10;
+            xoffset = 573; //2340
+            yoffset = 320; //3165
+            //stackNum = 10;  //10
             break;
 
           case '4':
-            xoffset = 1750;
-            yoffset = 3165;
-            stackNum = 30;
+            xoffset = 443; //1750
+            yoffset = 320; //3165
+            //stackNum = 30;  //30
             break;
 
           case '5':
-            xoffset = 1135;
-            yoffset = 3165;
-            stackNum = 44;
+            xoffset = 428; //1135
+            yoffset = 274; //3165
+            //stackNum = 44;  //44
+            break;
+
+          case '6':
+            xoffset = 376;
+            yoffset = 320;
+            break;
+
+          case '7':
+            xoffset = 317;
+            yoffset = 320;
             break;
 
           default:
-            xoffset = 0;
-            yoffset = 0;
-            stackNum = 0;
+            xoffset = 0;    //0
+            yoffset = 0;    //0
+            stackNum = 0;   //0
               
         }
-    
-        yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 11); //number is the distance between shelves
+        
+        //yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 5); //number is the distance between shelves
 
-        if (stackNum > 4)
-          yoffset -= xShelfJump;
+        yoffset = yoffset - (Number(arr[2]) * 10.5) + 10.5;
+
+        // FUTURE PLANS:
+        // I need to find a way to convert the contents of arr to integers, so I can use inequalities to simplify this a lot
+
+        if (arr[1] == '1' || arr[1] == '2' || arr[1] == '3' || arr[1] == '6' || arr[1] == '7') // Bookshelves 1-3, 6-7 use shelfjump
+          if (arr[2] != '1' && arr[2] != '2' && arr[2] != '3' && arr[2] != '4') // The first four bookcases in the range aren't affected by shelfjump
+            yoffset -= xShelfJump;
+        if (arr[1] == '5') // Bookshelf 5 uses shelfjump in a different location
+          if (arr[2] == '12' || arr[2] == '13' || arr[2] == '14' || arr[2] == '15' || arr[2] == '16' || arr[2] == '17')
+            yoffset -= xShelfJump;
+        if (arr[1] == '7') // Bookshelf 7 uses shelfjump in a different location
+          if (arr[2] == '16' || arr[2] == '17' || arr[2] == '18' || arr[2] == '19' || arr[2] == '20' || arr[2] == '21' || arr[2] == '22')
+            yoffset -=xShelfJump;
 
         if (arr[3] == 'B') {
 
-          yoffset = yoffset - 4;
+          yoffset = yoffset - 6.5; // 4
           
         }
     
