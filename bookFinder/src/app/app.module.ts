@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HttpModule } from '@angular/http';
 import { ScModalModule } from 'angular-5-popup';
-import {ModalPageModule} from './modal/modal.module'
+import { ModalPageModule } from './modal/modal.module'
 
 @NgModule({
   declarations: [AppComponent],

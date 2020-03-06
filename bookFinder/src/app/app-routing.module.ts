@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ModalPageModule } from './modal/modal.module'
+import { ModalPageModule } from './modal/modal.module';
+import { HomePageModule } from './home/home.module';
+import { MapDisplayPageModule } from './map-display/map-display.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -62,7 +62,6 @@ export class MapDisplayPage implements OnInit {
 
     // Create then adjusts the height and width of the canvas element
     
-
     var canvas = document.createElement('canvas');
     document.getElementById("canvasContainer").appendChild(canvas);
     var ctx = canvas.getContext('2d');
@@ -192,7 +191,6 @@ export class MapDisplayPage implements OnInit {
     //img.width = canvas.width;
 
     //console.log("imgh: " + img.height + "imgw: " + img.width);
-
   }
 
 
