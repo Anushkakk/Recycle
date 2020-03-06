@@ -202,6 +202,7 @@ export class HomePage {
 
     //Create an object that can be turned into a JSON string and sent to the database with an HTTP post
     var obj = {callnum: this.lCallNum, collection: this.collection};
+    console.log('AAAAA');
     
     //Post the user data and get a response
     this.http.post("http://bookfind.hpc.tcnj.edu/retrieve-data.php", JSON.stringify(obj)).subscribe (data => {
