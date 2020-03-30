@@ -92,9 +92,28 @@ export class MapDisplayPage implements OnInit
     
     var ctx = canvas.getContext('2d');
     var img = document.createElement('img');
-    
-    img.onload = function() {
+    var w = 3520;
+    var h = 2376;
 
+    /*
+    if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
+
+      canvas.height = window.outerHeight/2;
+      canvas.width = window.outerWidth;
+
+    } else {
+
+      canvas.height = screen.height/2;
+      canvas.width = screen.width;
+
+    }
+    */
+    
+   var canvas = document.createElement('canvas');
+   document.getElementById("canvasContainer").appendChild(canvas);
+   var ctx = canvas.getContext('2d');
+
+    img.onload = function() {
         //alert("image is loaded");
         // get the scale
         var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
@@ -278,19 +297,24 @@ export class MapDisplayPage implements OnInit
     };
 
     img.src = this.images[floor_number].src;
-    //img.src = "assets/maps/2.svg";
+
+    
+    //COMMENTED THIS OUT TO CHECK IF RESOLUTION PROBLEM CAN BE SOLVED BY COMPLETING THIS STEP EARLIER
     
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
-      canvas.height = window.outerHeight/2;
-      canvas.width = window.outerWidth;
+      canvas.height = h;
+      canvas.width = w;
 
     } else {
 
-      canvas.height = screen.height/2;
-      canvas.width = screen.width;
+      canvas.height = h;
+      canvas.width = w;
+
+      //screen.width or screen.height/2
 
     }
+    
     
     //img.height = canvas.height;
     //img.width = canvas.width;
@@ -300,46 +324,12 @@ export class MapDisplayPage implements OnInit
 
 
   decode(arr: Array<String>) {
-    
-    if(arr[0] == '2' && arr[1] == '4' && arr[2] == '35' && arr[3] == 'A') {
-      
-      this.info = "Call Number 1: Empty" + '\n';
-
-    }
-
-    else {
-
       this.info = this.info + "Call Number:" + '\n';
       this.info.fontcolor("white");
       this.info = this.info + '\t' + "Floor: " + arr[0] + '\n';
       this.info = this.info + '\t' + "Aisle #: " + arr[1] + '\n';
       this.info = this.info + '\t' + "Range: " + arr[2] + '\n';
       this.info = this.info + '\t' + "Side: " + arr[3] + '\n';
-    
-    }
-/*
-    if(arr[4] == '2' && arr[5] == '4' && arr[6] == '35' && arr[7] == 'A') {
-      //this.info = this.info + "Call Number 2: Empty" + '\n';
-    }
-    else {
-      this.info = this.info + "Call Number 2:" + '\n';
-      this.info = this.info + '\t' + "Floor: " + arr[4] + '\n';
-      this.info = this.info + '\t' + "Aisle #: " + arr[5] + '\n';
-      this.info = this.info + '\t' + "Range: " + arr[6] + '\n';
-      this.info = this.info + '\t' + "Side: " + arr[7] + '\n';
-    }
-
-    if(arr[8] == '2' && arr[9] == '4' && arr[10] == '35' && arr[11] == 'A') {
-      //this.info = this.info + "Call Number 3: Empty" + '\n';
-    }
-    else {
-      this.info = this.info + "Call Number 3:" + '\n';
-      this.info = this.info + '\t' + "Floor: " + arr[8] + '\n';
-      this.info = this.info + '\t' + "Aisle #: " + arr[9] + '\n';
-      this.info = this.info + '\t' + "Range: " + arr[10] + '\n';
-      this.info = this.info + '\t' + "Side: " + arr[11] + '\n';
-    }
-    */
   }
 
   ngOnInit() {
@@ -349,21 +339,7 @@ export class MapDisplayPage implements OnInit
     this.bookValues = this.dataRecv.split(",", 12);
     this.decode(this.bookValues);
     
-    if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
-        //console.log(this.bookValues);
-    setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
-    /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
-        this.showFloor(Number(this.bookValues[4]));
-    if(!(this.bookValues[8] == '2' && this.bookValues[9] == '4' && this.bookValues[10] == '35' && this.bookValues[11] == 'A'))
-        this.showFloor(Number(this.bookValues[8]));*/
-
+    setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 500);
   }
 
-  /*load() {
-
-    this.router.navigateByUrl('map-display/');
-
-
-  }
-*/
 }

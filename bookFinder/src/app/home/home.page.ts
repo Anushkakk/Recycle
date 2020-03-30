@@ -11,27 +11,27 @@ const splitAt = index => x => [x.slice(0, index), x.slice(index)]
 
 //Define Ionic Home Page component
 @Component({
-
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  
 })
 
 
 
 export class HomePage {
 
-  public rootPage: any = HomePage;     //Define the Home Page as the root page
-  stackData  = "";                     //Global string for holding value returned by database
-  lCallNum   = "";                     //Global string (local to this file) that will hold the user call number
-  callNum    = "";                     //Global string to be updated by the input to the text box (updated by HTML file)
-  collection = "General Collection";   //Global String to be updated by the input to the collection dropdown (updated by HTML file)
+  public rootPage: any = HomePage;      //Define the Home Page as the root page
+  stackData   = "";                     //Global string for holding value returned by database
+  lCallNum    = "";                     //Global string (local to this file) that will hold the user call number
+  callNum     = "";                     //Global string to be updated by the input to the text box (updated by HTML file)
+  collection  = "";                     //Global String to be updated by the input to the collection dropdown (updated by HTML file)
 
   //Define Home Page properties
   data: any;
   navCtrl: any;
   storage: any;
+
+  public info: string = "";
 
   //Constructor for routing from Home Page to Map Display Page
   constructor(public http: Http, private router: Router, public modalController: ModalController) {
@@ -52,6 +52,62 @@ export class HomePage {
     return await modal.present();
   }
 
+  textUpdate() {
+    switch(this.collection) {
+      case "":
+        this.info = "";
+        break;
+      case "General Collection":
+        this.info = "EX: A 15 .G"
+        break;
+      case "Bound Periodicals":
+        this.info = "EX: D 839 .M435";
+        break;
+      case "Caldecott/Newberry":
+        this.info = "EX: 185 or 99";
+        break;
+      case "Current Newspapers":
+        this.info = "EX: LOOK THESE UP";
+        break;
+      case "Current Periodicals":
+        this.info = "EX: LB1028.J69 or RC489.B4B435";
+        break;
+      case "Government Documents":
+        this.info = "GA1.13:AFMD-93-58BR or 974.90 159 1988-1989 or U";
+        break;
+      case "Leisure Reading":
+        this.info = "EX: LOOK THESE UP";
+        break;
+      case "Music Reference":
+        this.info = "EX: ML 134 .K";
+        break;
+      case "New Books":
+        this.info = "EX: LOOK THESE UP";
+        break;
+      case "RAND":
+        this.info = "EX: AR-3792 or Ref. AS36 R3321 V. 30/39";
+        break;
+      case "Children's Collection":
+        this.info = "EX: 791.3 M or Fict Zusak";
+        break;
+      case "Curriculum Reference":
+        this.info = "EX: PN 1009";
+        break;
+      case "New Textbook Collection":
+        this.info = "372.4 Ope";
+        break;
+      case "Old Textbook Collection":
+        this.info = "374.2 Mer 1967";
+        break;
+      case "Recent Newspapers":
+        this.info = "EX: LOOK THESE UP";
+        break;
+      default:
+        this.info = "";
+        break;
+    }
+  }
+
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
@@ -62,16 +118,16 @@ export class HomePage {
 
   //Function to convert user entered call number into correctly formatted LoC Call Number string
   normalize() {
-    if(this.collection == "General Collection") {
-      this.normalizeGeneral();
+    if(this.collection == "General Collection" || this.collection == "Bound Periodicals" || this.collection == "Caldecott/Newberry" || this.collection == "Curriculum Reference" || this.collection == "Music Reference") {
+      this.normalizeLC();
     }
-    else if(this.collection == "Children's Collection") {
-      this.normalizeChildrens();
+    else if(this.collection == "Children's Collection" || this.collection == "New Textbook Collection" || this.collection == "Old Textbook Collection") {
+      this.normalizeMelvil();
     }
   }
 
   //Function to convert user entered call number into correctly formatted LoC Call Number string
-  normalizeGeneral() {
+  normalizeLC() {
     var cutterNum = 0;  //Variable representing how many cutters are in the call number
     var str1, str2;     //Helper variables to hold 2 parts of a separated string
 
@@ -181,7 +237,7 @@ export class HomePage {
 
   }
 
-  normalizeChildrens() {
+  normalizeMelvil() {
     //Place the string in a file-local variable so it does not update the text box
     this.lCallNum = this.callNum;
 

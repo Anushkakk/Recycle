@@ -1,6 +1,6 @@
 <?php
    //GLOBAL VARIABLES {
-      //GENERAL
+      //LIBRARY OF CONGRESS
          //Define global variables for beginning, ending, and user call numbers
          $BC_Subject;
          $BC_ClassNum;
@@ -26,7 +26,7 @@
          $CN_Version;
          $CN_Copy;
 
-      //CHILDRENS
+      //MELVIL
          $BC_IDNum;
          $BC_IDString;
 
@@ -39,15 +39,15 @@
 
    //COMPARISON SECTION {
       function compare($collection) {
-         if($collection == "General Collection") {
-            return compareGeneral();
+         if ($collection == "General Collection" || $collection == "Bound Periodicals" || $collection == "Caldecott/Newberry" || $collection == "Curriculum Reference" || $collection == "Music Reference") {
+            return compareLC();
          }
-         else if ($collection == "Children's Collection") {
-            return compareChildrens();
+         else if ($collection == "Children's Collection" || $collection == "New Textbook Collection" || $collection == "Old Textbook Collection") {
+            return compareMelvil();
          }
       }
 
-      function compareGeneral() {
+      function compareLC() {
          //Check if the user entered call number falls within the range
          $beginMatch = 0;
          $beginSubjectMatch = 0;
@@ -361,7 +361,7 @@
 
       }
 
-      function compareChildrens() {
+      function compareMelvil() {
          $beginMatch = 0;
          $endMatch = 0;
 
@@ -384,37 +384,37 @@
 
    //ASSIGNMENT SECTION {
       function assignCN($CN_Arr, $collection) {
-         if($collection == "General Collection") {
-            assignGeneralCN($CN_Arr);
+         if ($collection == "General Collection" || $collection == "Bound Periodicals" || $collection == "Caldecott/Newberry" || $collection == "Curriculum Reference" || $collection == "Music Reference") {
+            assignLC_CN($CN_Arr);
          }
 
-         else if($collection == "Children's Collection") {
-            assignChildrensCN($CN_Arr);
+         else if ($collection == "Children's Collection" || $collection == "New Textbook Collection" || $collection == "Old Textbook Collection") {
+            assignMelvil_CN($CN_Arr);
          }
       }
 
       function assignBC($BC_Arr, $collection) {
-         if($collection == "General Collection") {
-            assignGeneralBC($BC_Arr);
+         if ($collection == "General Collection" || $collection == "Bound Periodicals" || $collection == "Caldecott/Newberry" || $collection == "Curriculum Reference" || $collection == "Music Reference") {
+            assignLC_BC($BC_Arr);
          }
 
-         else if($collection == "Children's Collection") {
-            assignChildrensBC($BC_Arr);
+         else if ($collection == "Children's Collection" || $collection == "New Textbook Collection" || $collection == "Old Textbook Collection") {
+            assignMelvil_BC($BC_Arr);
          }
       }
 
       function assignEC($EC_Arr, $collection) {
-         if($collection == "General Collection") {
-            assignGeneralEC($EC_Arr);
+         if ($collection == "General Collection" || $collection == "Bound Periodicals" || $collection == "Caldecott/Newberry" || $collection == "Curriculum Reference" || $collection == "Music Reference") {
+            assignLC_EC($EC_Arr);
          }
 
-         else if($collection == "Children's Collection") {
-            assignChildrensEC($EC_Arr);
+         else if ($collection == "Children's Collection" || $collection == "New Textbook Collection" || $collection == "Old Textbook Collection") {
+            assignMelvil_EC($EC_Arr);
          }
       }
 
-      //CHILDRENS
-         function assignChildrensCN($CN_Arr) {
+      //MELVIL
+         function assignMelvil_CN($CN_Arr) {
             if(ord(substr($CN_Arr[0], 0, 1)) >= 65 && ord(substr($CN_Arr[0], 0, 1)) <= 90) {
                $GLOBALS['CN_IDNum'] = "9999";
                $GLOBALS['CN_IDString'] = $CN_Arr[0];
@@ -425,7 +425,7 @@
             }
          }
 
-         function assignChildrensBC($BC_Arr) {
+         function assignMelvil_BC($BC_Arr) {
             if(ord(substr($BC_Arr[0], 0, 1)) >= 65 && ord(substr($BC_Arr[0], 0, 1)) <= 90) {
                $GLOBALS['BC_IDNum'] = "9999";
                $GLOBALS['BC_IDString'] = $BC_Arr[0];
@@ -436,7 +436,7 @@
             }
          }
 
-         function assignChildrensEC($EC_Arr) {
+         function assignMelvil_EC($EC_Arr) {
             if(ord(substr($EC_Arr[0], 0, 1)) >= 65 && ord(substr($EC_Arr[0], 0, 1)) <= 90) {
                $GLOBALS['EC_IDNum'] = "9999";
                $GLOBALS['EC_IDString'] = $EC_Arr[0];
@@ -447,8 +447,8 @@
             }
          }
 
-      //GENERAL
-         function assignGeneralCN($CN_Arr) {
+      //LIBRARY OF CONGRESS
+         function assignLC_CN($CN_Arr) {
             if(sizeof($CN_Arr) > 0)
                $GLOBALS['CN_Subject'] = $CN_Arr[0];
             if(sizeof($CN_Arr) > 1)
@@ -483,7 +483,7 @@
             }
          }
          
-         function assignGeneralBC($BC_Arr) {
+         function assignLC_BC($BC_Arr) {
             if(sizeof($BC_Arr) > 0)
                $GLOBALS['BC_Subject']  = $BC_Arr[0];
             if(sizeof($BC_Arr) > 1)
@@ -518,7 +518,7 @@
             }
          }
 
-         function assignGeneralEC($EC_Arr) {
+         function assignLC_EC($EC_Arr) {
             if(sizeof($EC_Arr) > 0)
                $GLOBALS['EC_Subject']  = $EC_Arr[0];
             if(sizeof($EC_Arr) > 1)
@@ -557,32 +557,14 @@
    //NORMALIZE SECTION {
       function normalize($callNum, $collection) {
          //if collection is general
-         if ($collection == "General Collection") {
-            $callNum = normalizeGeneral($callNum);
+         if ($collection == "General Collection" || $collection == "Bound Periodicals" || $collection == "Caldecott/Newberry" || $collection == "Curriculum Reference" || $collection == "Music Reference") {
+            $callNum = normalizeLC($callNum);
             return $callNum;
          }
 
          //if collection is children's
-         else if ($collection == "Children's Collection") {
-            $callNum = normalizeChildrens($callNum);
-            return $callNum;
-         }
-
-         //if collection is curriculum reference
-         else if ($collection == "Curriculum Reference") {
-            $callNum = normalizeCurriculum($callNum);
-            return $callNum;
-         }
-
-         //if collection is new textbook
-         else if ($collection == "New Textbook Collection") {
-            $callNum = normalizeNewTextbook($callNum);
-            return $callNum;
-         }
-
-         //if collection is old textbook
-         else if ($collection == "Old Textbook Collection") {
-            $callNum = normalizeOldTextbook($callNum);
+         else if ($collection == "Children's Collection" || $collection == "New Textbook Collection" || $collection == "Old Textbook Collection") {
+            $callNum = normalizeMelvil($callNum);
             return $callNum;
          }
 
@@ -591,7 +573,7 @@
          }
       }
 
-      function normalizeGeneral($callNum) {
+      function normalizeLC($callNum) {
          //Define helping variables
          $cutterNum = 0;
          $str1 = "";
@@ -704,7 +686,7 @@
 
       }
 
-      function normalizeChildrens($callNum) {
+      function normalizeMelvil($callNum) {
          $callNum = strtoupper($callNum);
 
          if(substr($callNum, 0, 4) == "FICT") {
@@ -714,15 +696,29 @@
          return $callNum;
       }
 
-      function normalizeCurriculum($callNum) {
+      function normalizeGovernment($callNum) {
+         $callNum = strtoupper($callNum);
+
+         //This is just fucking impossible
+
          return $callNum;
       }
 
-      function normalizeNewTextbook($callNum) {
+      function normalizeRAND($callNum) {
+         $callNum = strtoupper($callNum);
+
+         if(substr($callNum, 0, 3) == "REF") {
+            $callNum = "P-9999";
+         }
+
          return $callNum;
       }
 
-      function normalizeOldTextbook($callNum) {
+      function normalizeCurrentPeriodicals($callNum) {
+         $callNum = strtoupper($callNum);
+
+         //Normalize that ish
+
          return $callNum;
       }
    //}
@@ -747,6 +743,23 @@
       $request = json_decode($postdata, true);		
       $callnum = $request["callnum"];
       $collection = $request["collection"];
+
+      if($collection == "New Books") {
+         print_r("2,4,35,A");
+         exit;
+      }
+      else if($collection == "Leisure Reading") {
+         print_r("2,4,35,A");
+         exit;
+      }
+      else if($collection == "Recent Newspapers") {
+         print_r("2,4,35,A");
+         exit;
+      }
+      else if($collection == "Current Newspapers") {
+         print_r("2,4,36,A");
+         exit;
+      }
 
       $CN_Arr = explode(' ', $callnum);
       assignCN($CN_Arr, $collection);
@@ -808,7 +821,6 @@
                assignBC($BC_Arr, $collection);
                assignEC($EC_Arr, $collection);
 
-               
 
                $Match = compare($collection);
 

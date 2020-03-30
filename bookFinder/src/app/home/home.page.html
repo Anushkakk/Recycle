@@ -12,8 +12,8 @@
 
 <!--Page Body-->
 <!--make div move all of the other elements-->
-<ion-content>
-  <div style = "margin-left:5%">
+<ion-content padding>
+  <div> <!--used to be <div style = "margin-left:5%"> -->
     <h1 style = "padding-top: 35%">I'm looking for...</h1>
       <!--<h2 id="floor_number"></h2>-->
       <!--Input for First Call Number
@@ -32,14 +32,28 @@
   <!-- (ionChange) = "getCollection($event)" -->
     <ion-item lines=none>
       <p>in... &nbsp;</p>
-      <ion-select value="General Collection" [(ngModel)] = "collection" okText="OK" cancelText="Cancel">
+      <ion-select placeholder="Select a collection" [(ngModel)] = "collection" okText="OK" cancelText="Cancel" interface="popover" (ionChange) = "textUpdate($event)">
         <ion-select-option value="General Collection">General Collection</ion-select-option>
+        <ion-select-option value="Bound Periodicals">Bound Periodicals</ion-select-option>
+        <ion-select-option value="Caldecott/Newberry">Caldecott/Newberry</ion-select-option>
+        <ion-select-option value="Current Newspapers">Current Newspapers</ion-select-option>
+        <ion-select-option value="Recent Newspapers">Recent Newspapers</ion-select-option>
+        <ion-select-option value="Current Periodicals">Current Periodicals</ion-select-option>
+        <ion-select-option value="Government Documents">Government Documents</ion-select-option>
+        <ion-select-option value="Leisure Reading">Leisure Reading</ion-select-option>
+        <ion-select-option value="Music Reference">Music Reference</ion-select-option>
+        <ion-select-option value="New Books">New Books</ion-select-option>
+        <ion-select-option value="RAND">RAND</ion-select-option>
         <ion-select-option value="Children's Collection">Children's Collection</ion-select-option>
         <ion-select-option value="Curriculum Reference">Curriculum Reference</ion-select-option>
         <ion-select-option value="New Textbook Collection">New Textbook Collection</ion-select-option>
         <ion-select-option value="Old Textbook Collection">Old Textbook Collection</ion-select-option>
       </ion-select>
     </ion-item>
+
+    <!--Updating example text based on which drop down item is picked-->
+    <div align="center" style="color:white"> {{info}} </div>
+
   </div>
   <br>
 
