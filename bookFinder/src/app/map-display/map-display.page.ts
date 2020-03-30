@@ -101,8 +101,8 @@ export class MapDisplayPage implements OnInit
         // get the top left position of the image
         var x = (canvas.width / 2) - (img.width / 2) * scale;
         var y = (canvas.height / 2) - (img.height / 2) * scale;
-        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);//ctx.drawImage(img, x , y);
-        
+        //ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        ctx.drawImage(img, x+100 , y+100);
         
         
         var xoffset = 0;
@@ -278,6 +278,7 @@ export class MapDisplayPage implements OnInit
     };
 
     img.src = this.images[floor_number].src;
+    //img.src = "assets/maps/2.svg";
     
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
