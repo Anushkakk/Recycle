@@ -13,7 +13,8 @@ import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
   styleUrls: ['./map-display.page.scss'],
 
 })
-export class MapDisplayPage implements OnInit {
+export class MapDisplayPage implements OnInit 
+{
 
   navCtrl: any;
   images = [];
@@ -107,83 +108,159 @@ export class MapDisplayPage implements OnInit {
         var xoffset = 0;
         var xShelfJump = 4;
         var yoffset = 0;
-        var stackNum = 0;
+
         // low x is left, high x is right
         // low y is top, high y is bottom
 
         /* Testing **********/
-        arr[1] = '7'; // Aisle
+        arr[0] = '3'; // Floor
+        arr[1] = '2'; // Aisle
         arr[2] = '1'; // Range
         arr[3] = 'A'; // Side
         /********************/
 
-        switch (arr[1]) { 
-
+        var aisleNum = +arr[1]; // Converts string to integer
+        var rangeNum = +arr[2]; // Converts string to integer
+        switch (arr[0]) 
+        { /*
+          case '0':
+            switch (arr[1]) 
+            {
+              case '1':
+                xoffset = 838;
+                yoffset = 321;
+                break;
+            } */
           case '1':
-            xoffset = 680;  //298
-            yoffset = 320;
-            //yoffset = 312;  //312
-            //stackNum = 15;
+            switch (arr[1]) 
+            { 
+              case '1':
+                xoffset = 896; // 838
+                yoffset = 320; // 321
+                break;
+
+              case '2':
+                xoffset = 847; // 790
+                yoffset = 320; // 321
+                break;
+
+              case '3':
+                xoffset = 788; //731
+                yoffset = 320;
+                break;
+
+              case '4':
+                xoffset = 658; //601
+                yoffset = 320;
+                break;
+
+              case '5':
+                xoffset = 645; //586
+                yoffset = 275;
+                break;
+
+              case '6':
+                xoffset = 591; //534
+                yoffset = 320;
+                break;
+
+              case '7':
+                xoffset = 535; // 475
+                yoffset = 320;
+                break;
+
+              default:
+                xoffset = 0;
+                yoffset = 0;
+                break;
+            }
+            // Determines when to shelf jump for Floor 2
+            if (aisleNum <= 3 || aisleNum >= 6) // Bookshelves 1-3, 6-7 use shelfjump
+              if (rangeNum > 4)
+                yoffset -= xShelfJump;
+            if (aisleNum == 5) // Bookshelf 5 uses shelfjump in a different location
+              if (rangeNum >= 12)
+                yoffset -= xShelfJump;
+            if (aisleNum == 7) // Bookshelf 7 uses shelfjump in a different location
+              if (rangeNum >= 16) 
+                yoffset -=xShelfJump;
             break;
 
           case '2':
-            xoffset = 632; //3685
-            yoffset = 320;
-            //yoffset = 312; //3395
-            //stackNum = 15;   //5
+            switch (arr[1]) 
+            {
+
+              case '1':
+                xoffset = 844; // 786
+                yoffset = 330;
+                break;
+
+              case '2':
+                xoffset = 782; // 725
+                yoffset = 330;
+                break;
+              
+              case '3':
+                xoffset = 665; // 607
+                yoffset = 307;
+                break;
+              
+              case '4':
+                xoffset = 592; // 535
+                yoffset = 307;
+                break;
+              
+              case '5':
+                xoffset = 533; // 475
+                yoffset = 307;
+                break;
+
+              default:
+                xoffset = 0;
+                yoffset = 0;
+                break;
+            }
+
+            // Determines when to shelf jump for Floor 3
+            if (aisleNum >= 3)
+            {
+              if (rangeNum > 12) 
+              {
+                yoffset -= xShelfJump;
+                if (aisleNum == 3)
+                  xoffset -= 14;
+              }
+            }
             break;
 
           case '3':
-            xoffset = 573; //2340
-            yoffset = 320; //3165
-            //stackNum = 10;  //10
-            break;
-
-          case '4':
-            xoffset = 443; //1750
-            yoffset = 320; //3165
-            //stackNum = 30;  //30
-            break;
-
-          case '5':
-            xoffset = 428; //1135
-            yoffset = 274; //3165
-            //stackNum = 44;  //44
-            break;
-
-          case '6':
-            xoffset = 376;
-            yoffset = 320;
-            break;
-
-          case '7':
-            xoffset = 317;
-            yoffset = 320;
-            break;
-
-          default:
-            xoffset = 0;    //0
-            yoffset = 0;    //0
-            stackNum = 0;   //0
+            switch (arr[1]) 
+            {
+      
+              case '1':
+                xoffset = 873; // 656
+                yoffset = 311;
+                break;
+            
+              case '2':
+                xoffset = 651; //439
+                yoffset = 183;
+                break;
               
+              default:
+                xoffset = 0;
+                yoffset = 0;
+                break;
+            }
+            break;
         }
+        
         
         //yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 5); //number is the distance between shelves
 
-        yoffset = yoffset - (Number(arr[2]) * 10.5) + 10.5;
+        yoffset = yoffset - (Number(arr[2]) * 10.5) + 10.5; // Number is the distance between the shelves.
 
-        // FUTURE PLANS:
-        // I need to find a way to convert the contents of arr to integers, so I can use inequalities to simplify this a lot
-
-        if (arr[1] == '1' || arr[1] == '2' || arr[1] == '3' || arr[1] == '6' || arr[1] == '7') // Bookshelves 1-3, 6-7 use shelfjump
-          if (arr[2] != '1' && arr[2] != '2' && arr[2] != '3' && arr[2] != '4') // The first four bookcases in the range aren't affected by shelfjump
-            yoffset -= xShelfJump;
-        if (arr[1] == '5') // Bookshelf 5 uses shelfjump in a different location
-          if (arr[2] == '12' || arr[2] == '13' || arr[2] == '14' || arr[2] == '15' || arr[2] == '16' || arr[2] == '17')
-            yoffset -= xShelfJump;
-        if (arr[1] == '7') // Bookshelf 7 uses shelfjump in a different location
-          if (arr[2] == '16' || arr[2] == '17' || arr[2] == '18' || arr[2] == '19' || arr[2] == '20' || arr[2] == '21' || arr[2] == '22')
-            yoffset -=xShelfJump;
+        
 
         if (arr[3] == 'B') {
 
