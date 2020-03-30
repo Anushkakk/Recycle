@@ -2,7 +2,7 @@
 
 platform :ios, '9.0'
 
-target 'MyApp' do
-	project 'MyApp.xcodeproj'
+target 'C:\Users\SDera\Desktop\BookFinderProject\bookish-waffle\bookFinder\platforms\ios\TCNJ Book Finder' do
+	project 'C:\Users\SDera\Desktop\BookFinderProject\bookish-waffle\bookFinder\platforms\ios\TCNJ Book Finder.xcodeproj'
 
 end

@@ -7,13 +7,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding style="white-space: pre-wrap">
-  
-<div> 
-<pinch-zoom>   
-<div id = "canvasContainer">  
+
+<ion-img-viewer> 
+<pinch-zoom>
+<div id = "canvasContainer"> 
 </div>
 </pinch-zoom>
-</div>
+</ion-img-viewer>
+<pinch-zoom>
+<img src = "{{ getSrc() }}" imageViewer/> 
+</pinch-zoom>
 <br>
 <div> {{info}} </div>
 

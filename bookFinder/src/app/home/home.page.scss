@@ -1,83 +1,94 @@
-h1{
+h1 {
 
-    text-indent: 25px;
-    color: #ffffff;
+  text-indent: 25px;
+  color: #ffffff;
 
 }
 
 p {
 
-    color: #ffffff;
+  color: #ffffff;
 
 }
 
 ion-content{    
 
-    --background: url('/assets/Background2.png') no-repeat center/cover fixed;
+  --background: url('/assets/Background2.png') no-repeat center/cover fixed;
 
 }
 
  ion-header {
     
-    //--ion-background-color: #3b3652;
-    --ion-background-color: #262748;
-    text-align: center;
+  --ion-background-color: #262748;
+  text-align: center;
 
 }
 
 ion-title {
 
-    background-color: #262748;
-    color: #ffffff;
-    font-size: 130%;
+  background-color: #262748;
+  color: #ffffff;
+  font-size: 130%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
     
 }
 
 ion-item {
     
-    --background: transparent;
-    --padding-start: 25px;
-    --padding-end: 25px;
+  --background: transparent;
+  --padding-start: 25px;
+  --padding-end: 25px;
 
-    ion-input {
+  ion-input {
 
-        --background: #ffffff;
-        border: solid 1px #06123a;
-        border-radius: 5px;
-        --padding-start: 10px;
-
-    }
-    ion-select {
-
-        max-width: 100%;
-        background-color: #ffffff;
-        border: solid 1px #06123a;
-        border-radius: 5px;
-        --padding-end: 7px;
+    --background: #ffffff;
+    border: solid 1px #06123a;
+    border-radius: 5px;
+    --padding-start: 10px;
 
     }
-}
 
-.submitbutton{
+  ion-select {
 
-    //padding-left: 7%;
-    text-align: center;
+    max-width: 100%;
+    background-color: #ffffff;
+    border: solid 1px #06123a;
+    border-radius: 5px;
+    --padding-end: 7px;
+
+    }
 
 }
 
 ion-input {
 
-    //background-color: #588bb4;
     --placeholder-color: #000000;
 
 }
 
 ion-button {
+  
+  border-radius: 5px;
     
-    background-color: #d3a40d;
-    //--color-activated: #d3a40d;
-    //--ripple-color: #333092;
-    border-radius: 5px;
-    //background-color: linear-gradient(197deg, rgba(100,100,100,1) 0%, rgba(63,63,63,1) 13.5%, rgba(29,29,29,1) 33.33%, rgba(0,0,0,1) 100%) !important;
-    
+}
+
+.submitbutton {
+
+  text-align: center;
+
+}
+
+ion-tab-button {
+
+  color: #ffffff; 
+  float:right; 
+  font-size: 75%; 
+  text-decoration: underline; 
+  line-height: 99%;
+
+
 }

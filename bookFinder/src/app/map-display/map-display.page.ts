@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { ModalController } from '@ionic/angular';
+import { ViewerModalComponent } from 'ngx-ionic-image-viewer';
+//import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 
 @Component({
@@ -18,13 +21,14 @@ export class MapDisplayPage implements OnInit {
   plans: Array<string> = [];
   plan_names: Array<string> = ["Lower", "First", "Second", "Third", "Fourth"];
   id: any;
+  img_src = "";
 
   dataRecv = "";
   bookValues: Array<string> = ["", "", "", ""];
 
   public info: string = ""; //Information variable to display text on the map display page
 
-  constructor(public activeRoute:ActivatedRoute) {
+  constructor(public activeRoute:ActivatedRoute, public modalController: ModalController) {
     
     for(let i = 0; i < 5; i++) {
 
@@ -35,8 +39,22 @@ export class MapDisplayPage implements OnInit {
 
     }
 
-   }
+  }
+/*
+  async openViewer() {
+    const modal = await this.modalController.create({
+      component: ViewerModalComponent,
+      componentProps: {
+        src: this.img_src // required
+      },
+      cssClass: 'ion-img-viewer', // required
+      keyboardClose: true,
+      showBackdrop: true
+    });
 
+    return await modal.present();
+  }
+*/
   createImage(src: string, title: string) {
 
     let img = new Image();
@@ -44,6 +62,12 @@ export class MapDisplayPage implements OnInit {
     img.alt = title;
     img.title = title;
     return img;
+
+  }
+
+  getSrc() {
+
+    return this.img_src;
 
   }
 
@@ -61,9 +85,10 @@ export class MapDisplayPage implements OnInit {
     //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
 
     // Create then adjusts the height and width of the canvas element
-    
+    this.img_src = this.images[floor_number].src;    
     var canvas = document.createElement('canvas');
     document.getElementById("canvasContainer").appendChild(canvas);
+    
     var ctx = canvas.getContext('2d');
     var img = document.createElement('img');
     
@@ -76,6 +101,8 @@ export class MapDisplayPage implements OnInit {
         var x = (canvas.width / 2) - (img.width / 2) * scale;
         var y = (canvas.height / 2) - (img.height / 2) * scale;
         ctx.drawImage(img, x, y, img.width * scale, img.height * scale);//ctx.drawImage(img, x , y);
+        
+        
         
         var xoffset = 0;
         var xShelfJump = 4;
@@ -190,7 +217,7 @@ export class MapDisplayPage implements OnInit {
     //img.height = canvas.height;
     //img.width = canvas.width;
 
-    //console.log("imgh: " + img.height + "imgw: " + img.width);
+    console.log("imgh: " + canvas.height + "imgw: " + canvas.width);
   }
 
 

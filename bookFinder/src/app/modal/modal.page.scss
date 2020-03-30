@@ -1,5 +1,27 @@
-#closeButton {
+ion-header {
+    
+  --ion-background-color: #262748;
+  text-align: center;
 
-  background-color: #d3a40d;;
+}
+
+ion-content {    
+
+  --background: url('/assets/Background2.png') no-repeat center/cover fixed;
+
+}
+
+ion-title {
+
+  text-align: center;
+
+}
+
+ion-tab-button {
+
+  color: #ffffff; 
+  font-size: 75%; 
+  text-decoration: underline; 
+  line-height: 99%;
 
 }

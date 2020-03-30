@@ -839,13 +839,18 @@ module.exports = webpackAsyncContext;
 var map = {
 	"./home/home.module": [
 		"./src/app/home/home.module.ts",
+		"default~home-home-module~map-display-map-display-module",
 		"common",
 		"home-home-module"
 	],
 	"./map-display/map-display.module": [
 		"./src/app/map-display/map-display.module.ts",
+		"default~home-home-module~map-display-map-display-module",
 		"common",
 		"map-display-map-display-module"
+	],
+	"./modal/modal.module": [
+		"./src/app/modal/modal.module.ts"
 	]
 };
 function webpackAsyncContext(req) {
@@ -883,6 +888,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _modal_modal_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal/modal.module */ "./src/app/modal/modal.module.ts");
+
 
 
 
@@ -890,13 +897,15 @@ var routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', loadChildren: './home/home.module#HomePageModule' },
     { path: 'map-display/:data', loadChildren: './map-display/map-display.module#MapDisplayPageModule' },
+    { path: 'modal-page', loadChildren: './modal/modal.module' },
+    { path: 'modal', loadChildren: './modal/modal.module' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes)],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes), _modal_modal_module__WEBPACK_IMPORTED_MODULE_3__["ModalPageModule"]],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
         })
     ], AppRoutingModule);
@@ -933,21 +942,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar) {
+    function AppComponent(platform, splashScreen, statusBar, router) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
+        this.router = router;
         this.initializeApp();
     }
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
+            _this.router.navigateByUrl('home');
             _this.statusBar.styleDefault();
             _this.splashScreen.hide();
         });
@@ -959,7 +972,8 @@ var AppComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
-            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"]])
+            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -989,6 +1003,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var angular_5_popup__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! angular-5-popup */ "./node_modules/angular-5-popup/esm5/angular-5-popup.js");
+/* harmony import */ var _modal_modal_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modal/modal.module */ "./src/app/modal/modal.module.ts");
+
+
 
 
 
@@ -1007,7 +1025,7 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
             entryComponents: [],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _angular_http__WEBPACK_IMPORTED_MODULE_10__["HttpModule"]],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _angular_http__WEBPACK_IMPORTED_MODULE_10__["HttpModule"], angular_5_popup__WEBPACK_IMPORTED_MODULE_11__["ScModalModule"], _modal_modal_module__WEBPACK_IMPORTED_MODULE_12__["ModalPageModule"]],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
@@ -1017,6 +1035,120 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modal/modal.module.ts":
+/*!***************************************!*\
+  !*** ./src/app/modal/modal.module.ts ***!
+  \***************************************/
+/*! exports provided: ModalPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalPageModule", function() { return ModalPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal.page */ "./src/app/modal/modal.page.ts");
+
+
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _modal_page__WEBPACK_IMPORTED_MODULE_6__["ModalPage"]
+    }
+];
+var ModalPageModule = /** @class */ (function () {
+    function ModalPageModule() {
+    }
+    ModalPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
+            ],
+            declarations: [_modal_page__WEBPACK_IMPORTED_MODULE_6__["ModalPage"]]
+        })
+    ], ModalPageModule);
+    return ModalPageModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modal/modal.page.html":
+/*!***************************************!*\
+  !*** ./src/app/modal/modal.page.html ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>Help</ion-title>\r\n    <ion-tab-button id = \"closeButton\" (click)=\"closeModal()\">Close Modal</ion-tab-button>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content padding>\r\n\r\n</ion-content>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modal/modal.page.scss":
+/*!***************************************!*\
+  !*** ./src/app/modal/modal.page.scss ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-header {\n  --ion-background-color: #262748;\n  text-align: center; }\n\nion-content {\n  --background: url('/assets/Background2.png') no-repeat center/cover fixed; }\n\nion-title {\n  text-align: center; }\n\nion-tab-button {\n  color: #ffffff;\n  font-size: 75%;\n  text-decoration: underline;\n  line-height: 99%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kYWwvQzpcXFVzZXJzXFxTRGVyYVxcRGVza3RvcFxcQm9va0ZpbmRlclByb2plY3RcXGJvb2tpc2gtd2FmZmxlXFxib29rRmluZGVyL3NyY1xcYXBwXFxtb2RhbFxcbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUUsK0JBQXVCO0VBQ3ZCLGtCQUFrQixFQUFBOztBQUlwQjtFQUVFLHlFQUFhLEVBQUE7O0FBSWY7RUFFRSxrQkFBa0IsRUFBQTs7QUFJcEI7RUFFRSxjQUFjO0VBQ2QsY0FBYztFQUNkLDBCQUEwQjtFQUMxQixnQkFBZ0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21vZGFsL21vZGFsLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1oZWFkZXIge1xyXG4gICAgXHJcbiAgLS1pb24tYmFja2dyb3VuZC1jb2xvcjogIzI2Mjc0ODtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcblxyXG59XHJcblxyXG5pb24tY29udGVudCB7ICAgIFxyXG5cclxuICAtLWJhY2tncm91bmQ6IHVybCgnL2Fzc2V0cy9CYWNrZ3JvdW5kMi5wbmcnKSBuby1yZXBlYXQgY2VudGVyL2NvdmVyIGZpeGVkO1xyXG5cclxufVxyXG5cclxuaW9uLXRpdGxlIHtcclxuXHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG5cclxufVxyXG5cclxuaW9uLXRhYi1idXR0b24ge1xyXG5cclxuICBjb2xvcjogI2ZmZmZmZjsgXHJcbiAgZm9udC1zaXplOiA3NSU7IFxyXG4gIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lOyBcclxuICBsaW5lLWhlaWdodDogOTklO1xyXG5cclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/modal/modal.page.ts":
+/*!*************************************!*\
+  !*** ./src/app/modal/modal.page.ts ***!
+  \*************************************/
+/*! exports provided: ModalPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalPage", function() { return ModalPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var ModalPage = /** @class */ (function () {
+    function ModalPage(nav, modalCtrl) {
+        this.nav = nav;
+        this.modalCtrl = modalCtrl;
+    }
+    ModalPage.prototype.ngOnInit = function () {
+    };
+    ModalPage.prototype.closeModal = function () {
+        this.modalCtrl.dismiss();
+    };
+    ModalPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-modal',
+            template: __webpack_require__(/*! ./modal.page.html */ "./src/app/modal/modal.page.html"),
+            styles: [__webpack_require__(/*! ./modal.page.scss */ "./src/app/modal/modal.page.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+    ], ModalPage);
+    return ModalPage;
 }());
 
 
