@@ -8,16 +8,23 @@
 </ion-header>
 <ion-content padding style="white-space: pre-wrap">
 
+  <!--
 <ion-img-viewer> 
 <pinch-zoom>
 <div id = "canvasContainer" style = "background-color: #ffffff;"> 
 </div>
 </pinch-zoom>
 </ion-img-viewer>
+-->
 <pinch-zoom>
-<img src = "{{ getSrc() }}" imageViewer/> 
+<!-- <img src = "{{ getSrc() }}" imageViewer/> -->
+<svg width="100%" height="25%">
+  <image href="https://kbob.github.io/images/sample-5.jpg" width="100%" height="100%"></image>
+  <circle cx="150" cy="150" r="40" stroke="green" stroke-width="4" fill="yellow" />
+</svg>
 </pinch-zoom>
 <br>
+
 <div> {{info}} </div>
 
 </ion-content>
