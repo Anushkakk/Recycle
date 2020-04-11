@@ -13,15 +13,29 @@ ion-content {
 
 ion-title {
 
-  text-align: center;
+  background-color: #262748;
+  color: #ffffff;
+  font-size: 130%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 
 }
 
 ion-tab-button {
 
   color: #ffffff; 
+  float:right; 
   font-size: 75%; 
   text-decoration: underline; 
   line-height: 99%;
+
+}
+
+p {
+
+  color: #ffffff
 
 }

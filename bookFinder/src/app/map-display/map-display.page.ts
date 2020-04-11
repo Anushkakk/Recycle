@@ -94,6 +94,8 @@ export class MapDisplayPage implements OnInit
     var img = document.createElement('img');
     var w = 3520;
     var h = 2376;
+    canvas.height = img.height;
+    canvas.width = img.width;
 
     /*
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
@@ -108,20 +110,18 @@ export class MapDisplayPage implements OnInit
 
     }
     */
-    
-   var canvas = document.createElement('canvas');
-   document.getElementById("canvasContainer").appendChild(canvas);
-   var ctx = canvas.getContext('2d');
+
 
     img.onload = function() {
         //alert("image is loaded");
         // get the scale
         var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+        console.log(canvas)
         // get the top left position of the image
-        var x = (canvas.width / 2) - (img.width / 2) * scale;
-        var y = (canvas.height / 2) - (img.height / 2) * scale;
-        //ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-        ctx.drawImage(img, x+100 , y+100);
+        var x = ((canvas.width / 2) - (img.width / 2)) * scale;
+        var y = ((canvas.height / 2) - (img.height / 2)) * scale;
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        //ctx.drawImage(img, x+100 , y+100);-
         
         
         var xoffset = 0;
@@ -290,7 +290,7 @@ export class MapDisplayPage implements OnInit
         console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
         console.log("imgh" + img.height + " imgw" + img.width);
         ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
-        ctx.arc(xoffset, yoffset, 4, 0, 2 * Math.PI);//ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI); 
+        ctx.arc(0, 0, 35, 0, 2 * Math.PI);//ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI); 
         ctx.fillStyle = "red";
         ctx.fill();
 
@@ -300,25 +300,29 @@ export class MapDisplayPage implements OnInit
 
     
     //COMMENTED THIS OUT TO CHECK IF RESOLUTION PROBLEM CAN BE SOLVED BY COMPLETING THIS STEP EARLIER
-    
+    /*
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
-      canvas.height = h;
-      canvas.width = w;
+      canvas.height = window.outerHeight/2;
+      canvas.width = window.outerWidth;
 
     } else {
 
-      canvas.height = h;
-      canvas.width = w;
+      canvas.height = screen.height/2;
+      canvas.width = screen.width;
 
       //screen.width or screen.height/2
 
     }
     
     
-    //img.height = canvas.height;
-    //img.width = canvas.width;
-
+    img.height = canvas.height;
+    img.width = canvas.width;
+*/
+    this.img_src = canvas.toDataURL();
+    ctx.scale(.06,.06);
+    //canvas.height = 0;
+    //canvas.width = 0;
     console.log("imgh: " + canvas.height + "imgw: " + canvas.width);
   }
 
