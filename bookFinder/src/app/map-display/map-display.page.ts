@@ -79,23 +79,25 @@ export class MapDisplayPage implements OnInit
         var y = (canvas.height / 2) - (img.height / 2) * scale;
         ctx.drawImage(img, x, y, img.width * scale, img.height * scale);//ctx.drawImage(img, x , y);
         
-        var xoffset = 0;
-        var xShelfJump = 4;
+        // xoffset is the x coordinate of the marker
+        // Low xoffset is the left of the map
+        // High xoffset is the right of the map
+        var xoffset = 0; 
+
+        // yoffset is the y coordinate of the marker
+        // Low yoffset is top of the map
+        // High yoffset is bottom of the map
         var yoffset = 0;
 
-        // low x is left, high x is right
-        // low y is top, high y is bottom
+        // A shelf jump is when there is a walkway between shelves, and we need to account for this gap
+        var xShelfJump = 4;
 
-        /* Testing **********/
-        arr[0] = '3'; // Floor
-        arr[1] = '2'; // Aisle
-        arr[2] = '1'; // Range
-        arr[3] = 'A'; // Side
-        /********************/
-
+        // Converts the aisle and range (strings to ints)
+        var floorNum = +arr[0]; // Converts string to integer
         var aisleNum = +arr[1]; // Converts string to integer
         var rangeNum = +arr[2]; // Converts string to integer
-        switch (arr[0]) 
+
+        switch (arr[0]) // Check Floors
         { /*
           case '0':
             switch (arr[1]) 
@@ -105,143 +107,143 @@ export class MapDisplayPage implements OnInit
                 yoffset = 321;
                 break;
             } */
-          case '1':
-            switch (arr[1]) 
+          case '1': // 2nd Floor
+
+            switch (arr[1]) // Check aisles of the 2nd Floor
             { 
-              case '1':
-                xoffset = 896; // 838
-                yoffset = 320; // 321
-                break;
-
-              case '2':
-                xoffset = 847; // 790
-                yoffset = 320; // 321
-                break;
-
-              case '3':
-                xoffset = 788; //731
+              case '1': // 2nd Floor, Aisle 1
+                xoffset = 896;
                 yoffset = 320;
                 break;
 
-              case '4':
-                xoffset = 658; //601
+              case '2': // 2nd Floor, Aisle 2
+                xoffset = 847;
                 yoffset = 320;
                 break;
 
-              case '5':
-                xoffset = 645; //586
+              case '3': // 2nd Floor, Aisle 3
+                xoffset = 788;
+                yoffset = 320;
+                break;
+
+              case '4': // 2nd Floor, Aisle 4
+                xoffset = 658;
+                yoffset = 320;
+                break;
+
+              case '5': // 2nd Floor, Aisle 5
+                xoffset = 645;
                 yoffset = 275;
                 break;
 
-              case '6':
-                xoffset = 591; //534
+              case '6': // 2nd Floor, Aisle 6
+                xoffset = 591;
                 yoffset = 320;
                 break;
 
-              case '7':
-                xoffset = 535; // 475
+              case '7': // 2nd Floor, Aisle 7
+                xoffset = 535;
                 yoffset = 320;
                 break;
 
-              default:
+              default: // 2nd Floor Default
                 xoffset = 0;
                 yoffset = 0;
                 break;
             }
-            // Determines when to shelf jump for Floor 2
-            if (aisleNum <= 3 || aisleNum >= 6) // Bookshelves 1-3, 6-7 use shelfjump
+
+            // Determines which locations on the 2nd Floor require a shelf jump
+            if (aisleNum <= 3 || aisleNum >= 6) // Aisles 1-3, 6-7 require a shelf jump
               if (rangeNum > 4)
                 yoffset -= xShelfJump;
-            if (aisleNum == 5) // Bookshelf 5 uses shelfjump in a different location
+            if (aisleNum == 5) // Aisle 5 requires a shelf jump
               if (rangeNum >= 12)
                 yoffset -= xShelfJump;
-            if (aisleNum == 7) // Bookshelf 7 uses shelfjump in a different location
+            if (aisleNum == 7) // Aisle 7 requires a shelf jump
               if (rangeNum >= 16) 
                 yoffset -=xShelfJump;
-            break;
+            break; 
 
-          case '2':
-            switch (arr[1]) 
+          case '2': // 3rd Floor
+
+            switch (arr[1]) // Checks aisles of the 3rd Floor
             {
 
-              case '1':
-                xoffset = 844; // 786
+              case '1': // 3rd Floor, Aisle 1
+                xoffset = 844;
                 yoffset = 330;
                 break;
 
-              case '2':
-                xoffset = 782; // 725
+              case '2': // 3rd Floor, Aisle 2
+                xoffset = 782;
                 yoffset = 330;
                 break;
               
-              case '3':
-                xoffset = 665; // 607
+              case '3': // 3rd Floor, Aisle 3
+                xoffset = 665;
                 yoffset = 307;
                 break;
               
-              case '4':
-                xoffset = 592; // 535
+              case '4': // 3rd Floor, Aisle 4
+                xoffset = 592;
                 yoffset = 307;
                 break;
               
-              case '5':
-                xoffset = 533; // 475
+              case '5': // 3rd Floor, Aisle 5
+                xoffset = 533;
                 yoffset = 307;
                 break;
 
-              default:
+              default: // 3rd Floor Default
                 xoffset = 0;
                 yoffset = 0;
                 break;
             }
 
-            // Determines when to shelf jump for Floor 3
-            if (aisleNum >= 3)
-            {
-              if (rangeNum > 12) 
-              {
+            // Determines which locations on the 3rd Floor require a shelf jump
+            if (aisleNum >= 3) // Aisles 3-5 require a shelf jump
+              if (rangeNum > 12) {
                 yoffset -= xShelfJump;
                 if (aisleNum == 3)
                   xoffset -= 14;
               }
-            }
             break;
 
-          case '3':
-            switch (arr[1]) 
+          case '3': // 4th Floor
+
+            switch (arr[1]) // Checks aisles of the 4th Floor
             {
       
-              case '1':
-                xoffset = 873; // 656
+              case '1': // 4th Floor, Aisle 1
+                xoffset = 873;
                 yoffset = 311;
                 break;
             
-              case '2':
-                xoffset = 651; //439
+              case '2': // 4th Floor, Aisle 2
+                xoffset = 651;
                 yoffset = 183;
                 break;
               
-              default:
+              default: // 4th Floor Default
                 xoffset = 0;
                 yoffset = 0;
                 break;
             }
             break;
         }
-        
-        
-        //yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 5); //number is the distance between shelves
 
-        yoffset = yoffset - (Number(arr[2]) * 10.5) + 10.5; // Number is the distance between the shelves.
+        //yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 5); // Old Formula
 
-        
+        // Calculating marker placement based on the range
+        yoffset = yoffset - (Number(arr[2]) * 10.5) + 10.5; // This number is the distance between the shelves.
 
-        if (arr[3] == 'B') {
-
-          yoffset = yoffset - 6.5; // 4
-          
+        // If we are using Side B, then we decrement the yoffset to reflect that (we move it to the other side of the bookshelf)
+        if (arr[3] == 'B') 
+        {
+          yoffset = yoffset - 6.5;
         }
     
+        // Prints/outputs the x and y coordinates of the marker
         console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
         console.log("imgh" + img.height + " imgw" + img.width);
         ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
@@ -251,7 +253,8 @@ export class MapDisplayPage implements OnInit
 
     };
 
-    img.src = this.images[floor_number].src;
+    console.log("Floor Number: " + floor_number);
+    img.src = this.images[floor_number+1].src; // change to floor_number to stop hard-coding
     
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
@@ -323,8 +326,22 @@ export class MapDisplayPage implements OnInit
     this.bookValues = this.dataRecv.split(",", 12);
     this.decode(this.bookValues);
     
-    if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
-        //console.log(this.bookValues);
+   // if(!(this.bookValues[0] == '2' && this.bookValues[1] == '4' && this.bookValues[2] == '35' && this.bookValues[3] == 'A'))
+    console.log(this.bookValues);
+    
+    /* Testing **********/
+    this.bookValues[0] = '2'; // Floor
+    this.bookValues[1] = '2'; // Aisle
+    this.bookValues[2] = '2'; // Range
+    this.bookValues[3] = 'A'; // Side
+    /********************/
+
+    
+    //floor_number = floorNum;
+
+
+
+
     setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 1000);
     /*if(!(this.bookValues[4] == '2' && this.bookValues[5] == '4' && this.bookValues[6] == '35' && this.bookValues[7] == 'A'))
         this.showFloor(Number(this.bookValues[4]));
