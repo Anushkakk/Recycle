@@ -131,13 +131,6 @@ export class MapDisplayPage implements OnInit
         // low x is left, high x is right
         // low y is top, high y is bottom
 
-        /* Testing **********/
-        arr[0] = '3'; // Floor
-        arr[1] = '2'; // Aisle
-        arr[2] = '1'; // Range
-        arr[3] = 'A'; // Side
-        /********************/
-
         var aisleNum = +arr[1]; // Converts string to integer
         var rangeNum = +arr[2]; // Converts string to integer
         switch (arr[0]) 
@@ -337,11 +330,18 @@ export class MapDisplayPage implements OnInit
   }
 
   ngOnInit() {
-    
+
     this.dataRecv = this.activeRoute.snapshot.paramMap.get('data');
     this.dataRecv = this.dataRecv.substr(1);
     this.bookValues = this.dataRecv.split(",", 12);
     this.decode(this.bookValues);
+
+    /* Testing **********/
+    this.bookValues[0] = '2'; // Floor
+    this.bookValues[1] = '2'; // Aisle
+    this.bookValues[2] = '2'; // Range
+    this.bookValues[3] = 'A'; // Side
+    /********************/
     
     setTimeout(() => this.showFloor(Number(this.bookValues[0]), this.bookValues), 500);
   }
