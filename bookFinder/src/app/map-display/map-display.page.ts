@@ -77,6 +77,34 @@ export class MapDisplayPage implements OnInit
     if(floor_number === 5)
       return;
 
+      let canvas = <HTMLCanvasElement>document.getElementById('canvas');
+    let img = this.images[floor_number];
+    canvas.height = img.height;
+    canvas.width = img.width;
+    /*if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
+
+      canvas.height = window.outerHeight/2;
+      canvas.width = window.outerWidth;
+
+    } else {
+
+      canvas.height = screen.height/2;
+      canvas.width = screen.width;
+
+    }
+*/
+    // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
+    let ctx = canvas.getContext("2d");
+    //ctx.translate(canvas.width,0);
+    //ctx.rotate(90*Math.PI/180);
+    ctx.drawImage(img,0,0);
+    
+    //console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
+    console.log("imgh" + img.height + " imgw" + img.width);
+    ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
+    ctx.arc(325, 275, 45, 0, 2 * Math.PI);//ctx.arc(325, 275, 5, 0, 2 * Math.PI); 
+    ctx.fillStyle = "red";
+    ctx.fill();
     // Set title of page
     //document.getElementById("floor_name").innerHTML = this.plan_names[floor_number];
     //if (!document.getElementById("floor_number")) { return; }
@@ -86,6 +114,7 @@ export class MapDisplayPage implements OnInit
     //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
 
     // Create then adjusts the height and width of the canvas element
+  /*
     this.img_src = this.images[floor_number].src;    
     var canvas = document.createElement('canvas');
     document.getElementById("canvasContainer").appendChild(canvas);
@@ -94,9 +123,7 @@ export class MapDisplayPage implements OnInit
     var img = document.createElement('img');
     var w = 3520;
     var h = 2376;
-    canvas.height = img.height;
-    canvas.width = img.width;
-
+*/
     /*
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
@@ -111,7 +138,7 @@ export class MapDisplayPage implements OnInit
     }
     */
 
-
+/*
     img.onload = function() {
         //alert("image is loaded");
         // get the scale
@@ -133,7 +160,7 @@ export class MapDisplayPage implements OnInit
 
         var aisleNum = +arr[1]; // Converts string to integer
         var rangeNum = +arr[2]; // Converts string to integer
-        switch (arr[0]) 
+        switch (arr[0]) */
         { /*
           case '0':
             switch (arr[1]) 
@@ -143,7 +170,7 @@ export class MapDisplayPage implements OnInit
                 yoffset = 321;
                 break;
             } */
-          case '1':
+         /* case '1':
             switch (arr[1]) 
             { 
               case '1':
@@ -283,17 +310,17 @@ export class MapDisplayPage implements OnInit
         console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
         console.log("imgh" + img.height + " imgw" + img.width);
         ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
-        ctx.arc(0, 0, 35, 0, 2 * Math.PI);//ctx.arc(xoffset, yoffset, 35, 0, 2 * Math.PI); 
+        ctx.arc(325, 275, 5, 0, 2 * Math.PI);//ctx.arc(325, 275, 5, 0, 2 * Math.PI); 
         ctx.fillStyle = "red";
         ctx.fill();
 
-    };
+    }; */
 
     img.src = this.images[floor_number].src;
-
+/*
     
     //COMMENTED THIS OUT TO CHECK IF RESOLUTION PROBLEM CAN BE SOLVED BY COMPLETING THIS STEP EARLIER
-    /*
+    
     if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
       canvas.height = window.outerHeight/2;
@@ -312,14 +339,14 @@ export class MapDisplayPage implements OnInit
     img.height = canvas.height;
     img.width = canvas.width;
 */
-    this.img_src = canvas.toDataURL();
-    ctx.scale(.06,.06);
+   // this.img_src = canvas.toDataURL();
+   // ctx.scale(.06,.06);
     //canvas.height = 0;
     //canvas.width = 0;
     console.log("imgh: " + canvas.height + "imgw: " + canvas.width);
   }
 
-
+  }
   decode(arr: Array<String>) {
       this.info = this.info + "Call Number:" + '\n';
       this.info.fontcolor("white");
