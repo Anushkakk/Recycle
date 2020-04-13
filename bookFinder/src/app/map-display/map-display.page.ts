@@ -79,9 +79,7 @@ export class MapDisplayPage implements OnInit
 
       let canvas = <HTMLCanvasElement>document.getElementById('canvas');
     let img = this.images[floor_number];
-    canvas.height = img.height;
-    canvas.width = img.width;
-    /*if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
+    if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
 
       canvas.height = window.outerHeight/2;
       canvas.width = window.outerWidth;
@@ -92,13 +90,14 @@ export class MapDisplayPage implements OnInit
       canvas.width = screen.width;
 
     }
-*/
+    
     // Create a context from the canvas, which it moves and rotates before drawing the floor plan onto it
     let ctx = canvas.getContext("2d");
     //ctx.translate(canvas.width,0);
     //ctx.rotate(90*Math.PI/180);
+    ctx.scale(0.07, 0.1);
+        
     ctx.drawImage(img,0,0);
-    
     //console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
     console.log("imgh" + img.height + " imgw" + img.width);
     ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
