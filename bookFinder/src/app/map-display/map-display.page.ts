@@ -98,56 +98,6 @@ export class MapDisplayPage implements OnInit
     ctx.scale(0.07, 0.1);
         
     ctx.drawImage(img,0,0);
-    //console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
-    console.log("imgh" + img.height + " imgw" + img.width);
-    ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
-    ctx.arc(325, 275, 45, 0, 2 * Math.PI);//ctx.arc(325, 275, 5, 0, 2 * Math.PI); 
-    ctx.fillStyle = "red";
-    ctx.fill();
-    // Set title of page
-    //document.getElementById("floor_name").innerHTML = this.plan_names[floor_number];
-    //if (!document.getElementById("floor_number")) { return; }
-
-    //console.log("This number is " + floor_number);
-    //console.log("The plan name is " + this.plan_names[floor_number]);
-    //document.getElementById("floor_number").innerHTML = this.plan_names[floor_number];
-
-    // Create then adjusts the height and width of the canvas element
-  /*
-    this.img_src = this.images[floor_number].src;    
-    var canvas = document.createElement('canvas');
-    document.getElementById("canvasContainer").appendChild(canvas);
-    
-    var ctx = canvas.getContext('2d');
-    var img = document.createElement('img');
-    var w = 3520;
-    var h = 2376;
-*/
-    /*
-    if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
-
-      canvas.height = window.outerHeight/2;
-      canvas.width = window.outerWidth;
-
-    } else {
-
-      canvas.height = screen.height/2;
-      canvas.width = screen.width;
-
-    }
-    */
-
-/*
-    img.onload = function() {
-        //alert("image is loaded");
-        // get the scale
-        var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-        console.log(canvas)
-        // get the top left position of the image
-        var x = ((canvas.width / 2) - (img.width / 2)) * scale;
-        var y = ((canvas.height / 2) - (img.height / 2)) * scale;
-        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-        //ctx.drawImage(img, x+100 , y+100);-
         
         
         var xoffset = 0;
@@ -159,7 +109,7 @@ export class MapDisplayPage implements OnInit
 
         var aisleNum = +arr[1]; // Converts string to integer
         var rangeNum = +arr[2]; // Converts string to integer
-        switch (arr[0]) */
+        switch (arr[0])
         { /*
           case '0':
             switch (arr[1]) 
@@ -169,7 +119,7 @@ export class MapDisplayPage implements OnInit
                 yoffset = 321;
                 break;
             } */
-         /* case '1':
+          case '1':
             switch (arr[1]) 
             { 
               case '1':
@@ -313,39 +263,8 @@ export class MapDisplayPage implements OnInit
         ctx.fillStyle = "red";
         ctx.fill();
 
-    }; */
-
-    img.src = this.images[floor_number].src;
-/*
-    
-    //COMMENTED THIS OUT TO CHECK IF RESOLUTION PROBLEM CAN BE SOLVED BY COMPLETING THIS STEP EARLIER
-    
-    if ( navigator.platform != "iPad" && navigator.platform != "iPhone" && navigator.platform != "iPod" ) {
-
-      canvas.height = window.outerHeight/2;
-      canvas.width = window.outerWidth;
-
-    } else {
-
-      canvas.height = screen.height/2;
-      canvas.width = screen.width;
-
-      //screen.width or screen.height/2
-
-    }
-    
-    
-    img.height = canvas.height;
-    img.width = canvas.width;
-*/
-   // this.img_src = canvas.toDataURL();
-   // ctx.scale(.06,.06);
-    //canvas.height = 0;
-    //canvas.width = 0;
-    console.log("imgh: " + canvas.height + "imgw: " + canvas.width);
-  }
-
-  }
+    } 
+  
   decode(arr: Array<String>) {
       this.info = this.info + "Call Number:" + '\n';
       this.info.fontcolor("white");
