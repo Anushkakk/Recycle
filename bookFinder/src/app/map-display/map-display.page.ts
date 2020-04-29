@@ -97,11 +97,11 @@ export class MapDisplayPage implements OnInit
     //ctx.rotate(90*Math.PI/180);
     ctx.scale(0.07, 0.1);
         
-    ctx.drawImage(img,0,0);
+    ctx.drawImage(img,0,0); // 0, 0
         
         
         var xoffset = 0;
-        var xShelfJump = 4;
+        var xShelfJump = 30; // 4
         var yoffset = 0;
 
         // low x is left, high x is right
@@ -110,51 +110,51 @@ export class MapDisplayPage implements OnInit
         var aisleNum = +arr[1]; // Converts string to integer
         var rangeNum = +arr[2]; // Converts string to integer
         switch (arr[0])
-        { /*
-          case '0':
+        { 
+          case '1':
             switch (arr[1]) 
             {
               case '1':
                 xoffset = 838;
                 yoffset = 321;
                 break;
-            } */
-          case '1':
-            switch (arr[1]) 
+            }
+          case '2':
+            switch (arr[1]) // The aisle
             { 
               case '1':
-                xoffset = 896; // 838
-                yoffset = 320; // 321
+                xoffset = 4890; // 896
+                yoffset = 3285; // 320
                 break;
 
-              case '2':
-                xoffset = 847; // 790
-                yoffset = 320; // 321
+              case '2': // 896
+                xoffset = 4380; // 790
+                yoffset = 3285; // 321
                 break;
 
               case '3':
-                xoffset = 788; //731
-                yoffset = 320;
+                xoffset = 3775; //731
+                yoffset = 3285;
                 break;
 
               case '4':
-                xoffset = 658; //601
-                yoffset = 320;
+                xoffset = 2440; //601
+                yoffset = 3285;
                 break;
 
               case '5':
-                xoffset = 645; //586
-                yoffset = 275;
+                xoffset = 2293; //586
+                yoffset = 2813;
                 break;
 
               case '6':
-                xoffset = 591; //534
-                yoffset = 320;
+                xoffset = 1770; //534
+                yoffset = 3285;
                 break;
 
               case '7':
-                xoffset = 535; // 475
-                yoffset = 320;
+                xoffset = 1154; // 475
+                yoffset = 3285;
                 break;
 
               default:
@@ -174,7 +174,7 @@ export class MapDisplayPage implements OnInit
                 yoffset -=xShelfJump;
             break;
 
-          case '2':
+          case '3':
             switch (arr[1]) 
             {
 
@@ -221,7 +221,7 @@ export class MapDisplayPage implements OnInit
             }
             break;
 
-          case '3':
+          case '4':
             switch (arr[1]) 
             {
       
@@ -246,20 +246,26 @@ export class MapDisplayPage implements OnInit
         
         //yoffset = yoffset - ((Number(arr[2]) - (stackNum + 1)) * 5); //number is the distance between shelves
 
-        yoffset = yoffset - (Number(arr[2]) * 10.5) + 10.5; // Number is the distance between the shelves.
+        yoffset = yoffset - (Number(arr[2]) * 109) + 108; // Number is the distance between the shelves.
+        
+        
+        // 10.5, 10.5
 
         
 
         if (arr[3] == 'B') {
 
-          yoffset = yoffset - 6.5; // 4
+          yoffset = yoffset - 35; 
           
         }
+
+        //6.5
     
         console.log("xOffSet: " + xoffset + " yOffset: " + yoffset);
         console.log("imgh" + img.height + " imgw" + img.width);
         ctx.beginPath(); //Canvas/Image dimensions: 375(width) by 406(height) 
-        ctx.arc(325, 275, 5, 0, 2 * Math.PI);//ctx.arc(325, 275, 5, 0, 2 * Math.PI); 
+        ctx.arc(xoffset, yoffset, 40, 0, 2 * Math.PI);// 325, 275, 5, 0, 2 * Math.Pi
+        
         ctx.fillStyle = "red";
         ctx.fill();
 
@@ -283,8 +289,8 @@ export class MapDisplayPage implements OnInit
 
     /* Testing **********/
     this.bookValues[0] = '2'; // Floor
-    this.bookValues[1] = '2'; // Aisle
-    this.bookValues[2] = '2'; // Range
+    this.bookValues[1] = '1'; // Aisle
+    this.bookValues[2] = '1'; // Range
     this.bookValues[3] = 'A'; // Side
     /********************/
     
