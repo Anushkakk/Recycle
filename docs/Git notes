@@ -119,3 +119,22 @@ Git
                 - Git reset —hard hashNumber (erases latest updates)
     - Fork allows you to copy repository (on top right of GitHub)
  
+ 
+ 
+#Git Commands from Tommy:
+ Commands:
+Getting from GitHub:
+    Make sure in folder
+    git clone <link>
+    ionic serve
+Pushing to Github
+    git add *
+    git commit -m “message”
+    git push origin branch
+        or git push origin master
+Pulling from GitHub:
+    git pull
+Pulling and overwriting code:
+git fetch --all
+git reset --hard
+git pull
