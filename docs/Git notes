@@ -121,20 +121,19 @@ Git
  
  
  
-#Git Commands from Tommy:
- Commands:
-Getting from GitHub:
-    Make sure in folder
-    git clone <link>
-    ionic serve
-Pushing to Github
-    git add *
-    git commit -m “message”
-    git push origin branch
-        or git push origin master
-Pulling from GitHub:
-    git pull
-Pulling and overwriting code:
-git fetch --all
-git reset --hard
-git pull
+Git Commands from Tommy:
+ Getting from GitHub:
+     Make sure in folder
+     git clone <link>
+     ionic serve
+ Pushing to Github
+     git add *
+     git commit -m “message”
+     git push origin branch
+         or git push origin master
+ Pulling from GitHub:
+     git pull
+ Pulling and overwriting code:
+ git fetch --all
+ git reset --hard
+ git pull
