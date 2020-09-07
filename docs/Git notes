@@ -1,0 +1,121 @@
+Git
+ 
+- What is git?
+    - Free and open source (and widely used) control system
+- Version control?
+    - Management of different versions of code (google docs type beat) - saves previous versions of code if you need to revert back
+        - Way to track code changes can have different versions uploaded to git so you can see/understand all changes or track bugs and revert to other versions if needed
+- Terms
+    - Directory -> folder
+    - Terminal/command line -> interface for text commands, can navigate around, run/install programs
+    - CLI -> command line interface
+    - Cd-> change directory (double clicking on a folder) 
+    - Code editor -> place to write code, can write code editor but these are special places to code with tools 
+    - Repository -> your project or folder place where your project is kept
+    - Git vs GitHub
+        - Git is the tool that tracks changes in code over time
+        - GitHub is a website online to host your git repositories, easy to work with others and organize projects bc it is accessible online
+- Git commands (all lowercase)
+    - clone -> bring a repository that is hosted somewhere like GitHub into a folder on your local machine
+    - add -> track your files and changes in git
+    - commit -> save your files in git
+    - push -> upload git commands to a remote repo (GitHub alternative), like GitHub after changes are made, added and committed
+    - pull -> when there are changes that you have made on GitHub/remote repository and you want to download them to your local machine; opposite of a push command
+- Sign up for an account for GitHub
+    - + sign on upper right corner or green new button 
+    - Give it a name and create repository create readme.md and commit/save the file
+    - Edit this file option - commit message is updated, by committing the changes are saved
+    - Can see commit history commit tab, white — no change, green — addition, red— deletion
+- Git should be installed on terminal
+    - Type git —version  (Mac use home-brew, or bash for windows)
+    - Should get a code editor (VS Code) code.visualstudio.com 
+    - View->terminal
+    - git clone paste ssh url from GitHub
+    - cd git demo-repo
+    - la -a (ls -la list all)
+    - Add changes to readme.md
+        - git status (shows all the files changes that have been made but haven’t been updated in a commit)
+        - Make a new file and rerun git status, should be untracked —— git add . Or git add index.html
+        - Git status —> changes should be tracked and ready to be committed 
+        - Git commit -m “added index.html” -m “some description”
+        - Git push (adds commits to github)
+        - ssh-keygen -t rsa -b 4096 -C “githubemail@tcnj.edu” 
+            - Don’t need ssh key, this is something that you can do so you do not need to reenter GitHub username/password every time you want to access it https://kbroman.org/github_tutorial/pages/first_time.html
+        - Git push origin master    (origin: location of git repository, master is the branch we want to push to)
+- Start repository locally
+    - New folder and cd into it 
+    - Git init (initialize git repository)
+    - Git status
+    - Git add readme.md
+    - Git commit -m “created README” -m “description
+    - Git push origin master (ERROR!!) 
+    - Go to GitHub and create empty GitHub repository
+    - Copy ssh url
+    - Git remote add origin paste_git_link_here
+    - Git remote -v
+    - Git push origin master
+        - Git push -u origin master 
+- Github workflow
+    - Write code -> commit changes -> make a pull request
+- Local git workflow
+    - Write code-> stage changes (git add) -> commit changes (git commit) -> push changes (git push) -> make a pull request
+- Git Branching 
+    - Master branch 
+    - Feature branch — don’t risk affecting the main branch before you merge
+    - Good if working in a team 
+    - Hot fix branch 
+    - Example
+        - Git branch 
+        - Git checkout -b branchName-good-to-make-descriptive
+        - Git branch (shows which branch you’re on)
+        - Checkout allows you to switch between branches 
+        - Modify file
+        - Git status
+        - Git add readme.md
+        - Git commit -m “updated readme”
+        - Git checkout master
+            - Shouldn’t see other changes
+        - Merge
+            - Git diff nameOfBranch(shows what changes have been made, similar to GitHub interface with white red and green)
+            - Git merge branchName
+            - Git checkout branchName
+            - Git status
+            - Git push
+            - Git push -u origin branchName
+                - Pull request - request to have your code pulled into another branch 
+            - Go to GitHub compare pull request compare to base branch 
+                - Master <- compare branchName
+                    - Can add description and create pull request
+                    - Cann add comments on new changes on specific lines of code
+                    - Merge pull request
+                        - All changes should be merged on GitHub
+                    - Need to pull down changes on local environment
+                    - Git pull origin master
+                        - Should see updated merged changes
+                    - Git branch
+                    - Git branch -d branchName (not needed but good to delete branch once you have merged)
+            - Merge  conflicts in git 
+                - Easiest to fix directly in code
+                - Git diff
+                - Git commit -am “merged in master”
+    - Undoing in git
+        - Update code
+        - Git status
+        - Git add readme.md
+        - Git status
+        - Git reset readme.md or just git reset
+        - Git status (file should no longer be staged)
+        - Undo commit
+            - Git  add readme.md
+            - Git commit -m “new change”
+            - Git status
+            - Git reset HEAD~1 (undoes last commit)
+            - Git status
+                - Unstaged and uncommitted last changes
+            - Git diff - should appear as new change
+            - Git log (shows all commits in reverse chronological order)
+                - Can copy commit hash
+                - Git reset hashNumber
+                - Git reset —hard hashNumber (erases latest updates)
+    - Fork allows you to copy repository (on top right of GitHub)
+ 
