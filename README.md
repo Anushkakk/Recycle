@@ -5,3 +5,6 @@ The app has also been built for android and ios, so there are app icons for both
 There has been an addition of numerous files. 
 
 
+# Application Information
+The application is being built using ionic 4.0.0, with node version v6.17.1, and npm version 3.10.10.
+Will also be using MariaDB and PHP for database construction
